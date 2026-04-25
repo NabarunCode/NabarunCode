@@ -9,7 +9,7 @@
 * Python (hands-on)
 * FastAI (Practical Deep Learning)
 * Machine Learning fundamentals
-* Automation with Python
+* Automation with Python 
 
 ---
 
