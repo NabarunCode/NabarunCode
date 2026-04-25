@@ -34,3 +34,12 @@
 * ML models
 * Automation tools
 * Docker + ML deployment
+
+---
+## 📬 My Newsletter
+
+I write about learning AI as a non-coder — honest, jargon-free, once a week.
+
+**[AI for the Rest of Us](https://nabarunwrites.substack.com)** — No PhD Required
+
+![Subscribe](qr-code.png)
