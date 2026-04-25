@@ -42,6 +42,6 @@ I write about learning AI as a non-coder — honest, jargon-free, once a week.
 
 **[AI for the Rest of Us](https://nabarunwrites.substack.com)** — No PhD Required
 
-<img width="100" alt="Subscribe QR Code" src="https://github.com/user-attachments/assets/7f7e4c7a-8e25-4e67-b576-d489f24f01ae" />
+<img width="200" alt="Subscribe QR Code" src="https://github.com/user-attachments/assets/7f7e4c7a-8e25-4e67-b576-d489f24f01ae" />
 
 
