@@ -46,6 +46,7 @@ I write two — honest, jargon-free.
 
 
 <img width="200" alt="Subscribe QR Code" src="https://github.com/user-attachments/assets/7f7e4c7a-8e25-4e67-b576-d489f24f01ae" />
+
 ---
 
 ## 🔗 Find Me
