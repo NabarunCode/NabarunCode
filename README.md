@@ -41,6 +41,7 @@
 I write two — honest, jargon-free.
 
 **[Winning Late](https://winninglate.substack.com)** — it's not too late, just a different clock
+
 **[AI for the Rest of Us](https://nabarunwrites.substack.com)** — learning AI as a non-coder, no PhD required
 
 
