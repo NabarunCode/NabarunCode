@@ -22,7 +22,7 @@
 
 ## 🔨 What I'm Doing Here
 
-* Documenting my learning journey
+* Documenting my learning journey → **[learning-log](https://github.com/NabarunCode/learning-log)**
 * Building real-world projects
 * Exploring AI + DevOps (MLOps direction)
 
@@ -38,10 +38,17 @@
 ---
 ## 📬 My Newsletter
 
-I write about learning AI as a non-coder — honest, jargon-free, once a week.
+I write two — honest, jargon-free.
 
-**[AI for the Rest of Us](https://nabarunwrites.substack.com)** — No PhD Required
+**[Winning Late](https://winninglate.substack.com)** — it's not too late, just a different clock
+**[AI for the Rest of Us](https://nabarunwrites.substack.com)** — learning AI as a non-coder, no PhD required
+
 
 <img width="200" alt="Subscribe QR Code" src="https://github.com/user-attachments/assets/7f7e4c7a-8e25-4e67-b576-d489f24f01ae" />
+---
 
+## 🔗 Find Me
+* 💼 [LinkedIn](https://linkedin.com/in/nabarun-chakraborty-in)
+* 📓 [GitHub — learning-log](https://github.com/NabarunCode/learning-log)
+* 🕰️ [Winning Late](https://winninglate.substack.com) · 🤖 [AI for the Rest of Us](https://nabarunwrites.substack.com)
 
