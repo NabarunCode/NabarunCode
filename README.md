@@ -52,7 +52,7 @@ Honest, jargon-free.
 ---
 
 ## 🔗 Find Me
-* 🐦 [X / Twitter — @nabarunzone]([url](https://x.com/nabarunzone))
+* 🐦 [X / Twitter — @nabarunzone](https://x.com/nabarunzone)
 * 💼 [LinkedIn](https://linkedin.com/in/nabarun-chakraborty-in)
 * 📓 [GitHub — learning-log](https://github.com/NabarunCode/learning-log)
 * 🕰️ [Winning Late](https://winninglate.substack.com) · 🤖 [AI for the Rest of Us](https://nabarunwrites.substack.com)
