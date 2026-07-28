@@ -1,6 +1,7 @@
 # Hi, I'm Nabarun 👋
 
-🚀 Transitioning from IT Infrastructure → AI / ML / MLOps
+🚀 IT Infrastructure → AI / ML / MLOps.
+
 20+ years keeping enterprise IT alive — Windows Server, Azure, virtualization, the 2 a.m. incident calls. 
 Then, I left to learn AI engineering full time. I'm doing it in the open — mistakes included.
 
