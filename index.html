@@ -1,150 +1,1603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nabarun — IT Infrastructure → AI Engineering</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="Nabarun — 20+ years of enterprise IT, now learning AI engineering in public.">
+<title>Nabarun — From Infrastructure to AI Engineering</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta name="description"
+content="Nabarun — 20+ years of enterprise IT, now building toward AI engineering through hands-on learning, research reproduction and experimentation.">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #07090d;
+    color: #e8edf5;
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+    --bg: #07090d;
+    --bg2: #0b0f16;
+    --panel: #10151e;
+    --line: #202733;
+
+    --text: #e8edf5;
+    --muted: #8993a4;
+
+    --green: #6cff9b;
+    --cyan: #55e7ff;
+
+    --mono: "SFMono-Regular", Consolas,
+            "Liberation Mono", monospace;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.grid {
+    position: fixed;
+    inset: 0;
+
+    z-index: -10;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 60px 60px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+}
+
+
+.glow {
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(108,255,155,.035);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+
+    z-index: -9;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+nav {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    background: rgba(7,9,13,.72);
+
+    backdrop-filter: blur(16px);
+
+    border-bottom: 1px solid rgba(255,255,255,.05);
+
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -.05em;
+}
+
+.logo span {
+    color: var(--green);
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+
+    font-family: var(--mono);
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+.nav-links a {
+    transition: .25s;
+}
+
+.nav-links a:hover {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 130px 10% 100px;
+
+    position: relative;
+}
+
+
+.eyebrow,
+.section-label {
+    font-family: var(--mono);
+
+    font-size: 11px;
+
+    letter-spacing: .16em;
+
+    color: var(--green);
+
+    text-transform: uppercase;
+}
+
+
+.hero .eyebrow {
+    margin-bottom: 25px;
+}
+
+
+.hero h1 {
+    font-size: clamp(60px, 10vw, 135px);
+
+    line-height: .9;
+
+    letter-spacing: -.07em;
+
+    margin-bottom: 38px;
+}
+
+
+.hero h1 span {
+    color: transparent;
+
+    -webkit-text-stroke: 1px #e8edf5;
+
+    transition: .4s;
+}
+
+
+.hero h1 span:hover {
+    color: var(--green);
+
+    -webkit-text-stroke: 0;
+}
+
+
+.hero h2 {
+    max-width: 950px;
+
+    font-size: clamp(25px, 3.4vw, 48px);
+
+    line-height: 1.18;
+
+    letter-spacing: -.04em;
+
+    margin-bottom: 28px;
+}
+
+
+.hero-description {
+    max-width: 720px;
+
+    color: var(--muted);
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   TERMINAL
+========================================================= */
+
+.terminal {
+    position: absolute;
+
+    right: 8%;
+    top: 23%;
+
+    width: 355px;
+
+    transform: rotate(3deg);
+
+    border: 1px solid #242c37;
+
+    background: rgba(10,14,20,.92);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.4);
+
+    transition: transform .3s ease;
+}
+
+
+.terminal-bar {
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 12px;
+
+    gap: 6px;
+
+    background: #131923;
+
+    border-bottom: 1px solid #242c37;
+}
+
+
+.terminal-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #586474;
+}
+
+
+.terminal-body {
+    padding: 22px;
+
+    min-height: 225px;
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+
+    line-height: 2;
+}
+
+
+.term-green {
+    color: var(--green);
+}
+
+.term-cyan {
+    color: var(--cyan);
+}
+
+.term-muted {
+    color: #657080;
+}
+
+
+.cursor {
+    animation: blink 1s infinite;
+}
+
+
+@keyframes blink {
+
+    50% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.buttons {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 38px;
+}
+
+
+.btn {
+    padding: 13px 20px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 5px;
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+
+    transition: .25s;
+}
+
+
+.btn:hover {
+    border-color: var(--green);
+
+    transform: translateY(-3px);
+}
+
+
+.btn-primary {
+    background: var(--green);
+
+    color: #071009;
+
+    border-color: var(--green);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section {
+    padding: 140px 10%;
+}
+
+
+.section-label {
+    margin-bottom: 24px;
+}
+
+
+.section-title {
+    max-width: 1000px;
+
+    font-size: clamp(42px, 5.5vw, 76px);
+
+    line-height: 1.03;
+
+    letter-spacing: -.055em;
+
+    margin-bottom: 28px;
+}
+
+
+.section-intro {
+    max-width: 700px;
+
+    color: var(--muted);
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about {
+    border-top: 1px solid var(--line);
+}
+
+
+.about-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 80px;
+
+    margin-top: 65px;
+}
+
+
+.about-text {
+    color: #aeb7c5;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+}
+
+
+.about-text p {
+    margin-bottom: 20px;
+}
+
+
+.about-side {
+    border-left: 1px solid var(--line);
+
+    padding-left: 35px;
+}
+
+
+.about-side h3 {
+    font-size: 18px;
+
+    margin-bottom: 15px;
+}
+
+
+.about-side p {
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey {
+    background: var(--bg2);
+
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+
+.journey-track {
+    margin-top: 80px;
+
+    position: relative;
+}
+
+
+.journey-line {
+    position: absolute;
+
+    top: 25px;
+    left: 0;
+    right: 0;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--green),
+            var(--cyan),
+            var(--green)
+        );
+
+    opacity: .35;
+}
+
+
+.journey-items {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 20px;
+}
+
+
+.journey-node {
+    position: relative;
+
+    padding-top: 55px;
+}
+
+
+.journey-dot {
+    position: absolute;
+
+    top: 17px;
+    left: 0;
+
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+
+    border: 3px solid var(--bg2);
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 0 1px var(--green),
+        0 0 20px rgba(108,255,155,.25);
+}
+
+
+.journey-node:nth-child(3) .journey-dot {
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 0 1px var(--cyan),
+        0 0 20px rgba(85,231,255,.3);
+}
+
+
+.journey-year {
+    font-family: var(--mono);
+
+    font-size: 10px;
+
+    color: var(--green);
+
+    margin-bottom: 12px;
+}
+
+
+.journey-node h3 {
+    font-size: 21px;
+
+    margin-bottom: 9px;
+}
+
+
+.journey-node p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CURRENT LEARNING
+========================================================= */
+
+.learning-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 1px;
+
+    background: var(--line);
+
+    border: 1px solid var(--line);
+
+    margin-top: 65px;
+}
+
+
+.learning-card {
+    background: var(--bg);
+
+    padding: 32px;
+
+    min-height: 215px;
+
+    transition: .35s;
+}
+
+
+.learning-card:hover {
+    background: #101720;
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+}
+
+
+.card-number {
+    font-family: var(--mono);
+
+    font-size: 10px;
+
+    color: var(--green);
+
+    margin-bottom: 30px;
+}
+
+
+.learning-card h3 {
+    font-size: 22px;
+
+    margin-bottom: 12px;
+}
+
+
+.learning-card p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SELECTED WORK
+========================================================= */
+
+.work {
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(85,231,255,.05),
+            transparent 35%
+        );
+}
+
+
+.project {
+    display: grid;
+
+    grid-template-columns: 1.2fr .8fr;
+
+    gap: 60px;
+
+    margin-top: 70px;
+
+    padding: 45px;
+
+    border: 1px solid var(--line);
+
+    background: rgba(11,15,22,.65);
+
+    transition: .35s;
+}
+
+
+.project:hover {
+    border-color: #344052;
+
+    transform: translateY(-5px);
+}
+
+
+.project-kicker {
+    font-family: var(--mono);
+
+    font-size: 10px;
+
+    color: var(--green);
+
+    letter-spacing: .12em;
+
+    margin-bottom: 15px;
+}
+
+
+.project h3 {
+    font-size: clamp(30px, 4vw, 48px);
+
+    letter-spacing: -.04em;
+
+    line-height: 1.1;
+
+    margin-bottom: 20px;
+}
+
+
+.project-description {
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    max-width: 680px;
+}
+
+
+.project-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 25px;
+}
+
+
+.project-tags span {
+    border: 1px solid var(--line);
+
+    padding: 6px 9px;
+
+    border-radius: 4px;
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+
+    color: var(--muted);
+}
+
+
+.project-side {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+
+.research-flow {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.flow-step {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+
+.flow-number {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 27px;
+    height: 27px;
+
+    border: 1px solid var(--line);
+
+    color: var(--green);
+
+    font-size: 9px;
+}
+
+
+.project-link {
+    display: inline-block;
+
+    margin-top: 25px;
+
+    color: var(--green);
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   CREDENTIALS
+========================================================= */
+
+.credentials {
+    border-top: 1px solid var(--line);
+}
+
+
+.credentials-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-top: 65px;
+}
+
+
+.credential {
+    padding: 30px;
+
+    border: 1px solid var(--line);
+
+    transition: .3s;
+}
+
+
+.credential:hover {
+    border-color: var(--green);
+
+    transform: translateY(-4px);
+}
+
+
+.credential-issuer {
+    font-family: var(--mono);
+
+    font-size: 10px;
+
+    color: var(--green);
+
+    margin-bottom: 20px;
+}
+
+
+.credential h3 {
+    font-size: 18px;
+
+    line-height: 1.4;
+
+    margin-bottom: 8px;
+}
+
+
+.credential p {
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   INFRA → AI PIPELINE
+========================================================= */
+
+.pipeline-section {
+    background: var(--bg2);
+
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+
+    text-align: center;
+}
+
+
+.pipeline {
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+
+    margin-top: 70px;
+}
+
+
+.pipeline-node {
+    position: relative;
+
+    padding: 23px 25px;
+
+    border: 1px solid var(--line);
+
+    background: #0b1017;
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+
+    transition: .3s;
+}
+
+
+.pipeline-node:hover {
+    border-color: var(--green);
+
+    transform: translateY(-5px);
+}
+
+
+.pipeline-node small {
+    display: block;
+
+    color: var(--green);
+
+    font-size: 8px;
+
+    margin-bottom: 7px;
+}
+
+
+.pipeline-arrow {
+    color: var(--green);
+
+    font-size: 20px;
+}
+
+
+.pipeline-pulse {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 15px var(--green);
+
+    animation: pipelineMove 5s infinite linear;
+}
+
+
+@keyframes pipelineMove {
+
+    0% {
+        left: 8%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 92%;
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   PHILOSOPHY
+========================================================= */
+
+.philosophy {
+    padding: 180px 15%;
+
+    text-align: center;
+}
+
+
+.quote-mark {
+    font-size: 90px;
+
+    color: var(--green);
+
+    opacity: .45;
+
+    line-height: .4;
+}
+
+
+.philosophy blockquote {
+    max-width: 1000px;
+
+    margin: 40px auto;
+
+    font-size: clamp(40px, 6vw, 80px);
+
+    line-height: 1.04;
+
+    letter-spacing: -.06em;
+}
+
+
+.philosophy p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   WRITING
+========================================================= */
+
+.writing-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+
+    margin-top: 65px;
+}
+
+
+.writing-card {
+    display: flex;
+
+    gap: 22px;
+
+    padding: 35px;
+
+    border: 1px solid var(--line);
+
+    transition: .3s;
+}
+
+
+.writing-card:hover {
+    border-color: var(--green);
+
+    transform: translateY(-5px);
+}
+
+
+.writing-icon {
+    flex-shrink: 0;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--line);
+
+    color: var(--green);
+
+    font-family: var(--mono);
+
+    font-size: 11px;
+}
+
+
+.writing-card h3 {
+    font-size: 23px;
+
+    margin-bottom: 10px;
+}
+
+
+.writing-card p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    margin-bottom: 18px;
+}
+
+
+.writing-card span {
+    color: var(--green);
+
+    font-family: var(--mono);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CONNECT
+========================================================= */
+
+.connect {
+    padding: 170px 10%;
+
+    text-align: center;
+
+    border-top: 1px solid var(--line);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(108,255,155,.07),
+            transparent 45%
+        );
+}
+
+
+.connect h2 {
+    font-size: clamp(48px, 7vw, 95px);
+
+    letter-spacing: -.07em;
+
+    line-height: 1;
+}
+
+
+.connect p {
+    max-width: 600px;
+
+    margin: 25px auto 40px;
+
+    color: var(--muted);
+}
+
+
+.socials {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.socials a {
+    padding: 12px 19px;
+
+    border: 1px solid var(--line);
+
+    font-family: var(--mono);
+
+    font-size: 10px;
+
+    transition: .25s;
+}
+
+
+.socials a:hover {
+    border-color: var(--green);
+
+    color: var(--green);
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 35px 10%;
+
+    border-top: 1px solid var(--line);
+
+    color: var(--muted);
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+}
+
+
+footer strong {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+
+.reveal.visible {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .terminal {
+        display: none;
+    }
+
+    .journey-items {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .journey-line {
+        top: 0;
+        bottom: 0;
+        left: 8px;
+        width: 1px;
+        height: auto;
+    }
+
+    .journey-node {
+        padding-top: 0;
+        padding-left: 40px;
+    }
+
+    .journey-dot {
+        left: 0;
+        top: 3px;
+    }
+
+    .about-grid,
+    .project {
+        grid-template-columns: 1fr;
+    }
+
+    .about-side {
+        border-left: none;
+        border-top: 1px solid var(--line);
+        padding-left: 0;
+        padding-top: 30px;
+    }
+
+    .learning-grid,
+    .credentials-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+    .section {
+        padding-left: 7%;
+        padding-right: 7%;
+    }
+
+    .hero h1 {
+        font-size: 62px;
+    }
+
+    .hero h2 {
+        font-size: 27px;
+    }
+
+    .buttons {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .learning-grid,
+    .credentials-grid,
+    .writing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project {
+        padding: 28px;
+    }
+
+    .pipeline {
+        flex-direction: column;
+    }
+
+    .pipeline-arrow {
+        transform: rotate(90deg);
+    }
+
+    .philosophy {
+        padding: 120px 7%;
+    }
+
+    footer {
+        flex-direction: column;
+
+        gap: 15px;
+
+        text-align: center;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-<!-- Background -->
 <div class="grid"></div>
-<div class="particles" id="particles"></div>
+<div class="glow"></div>
 
-<!-- Navigation -->
+
+<!-- =====================================================
+     NAV
+===================================================== -->
+
 <nav>
-    <div class="logo">N<span>.</span></div>
+
+    <div class="logo">
+        N<span>.</span>
+    </div>
 
     <div class="nav-links">
+
+        <a href="#about">About</a>
+
         <a href="#journey">Journey</a>
+
+        <a href="#work">Work</a>
+
         <a href="#learning">Learning</a>
+
         <a href="#writing">Writing</a>
+
         <a href="#connect">Connect</a>
+
     </div>
+
 </nav>
 
 
-<!-- HERO -->
+<!-- =====================================================
+     HERO
+===================================================== -->
+
 <section class="hero">
 
-    <div class="terminal">
-        <div class="terminal-top">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <div class="terminal-body">
-            <div>
-                <span class="prompt">$</span>
-                <span id="typed"></span>
-                <span class="cursor">▋</span>
-            </div>
-        </div>
+    <div class="eyebrow">
+        IT INFRASTRUCTURE → AI ENGINEERING
     </div>
 
-
-    <p class="eyebrow">IT INFRASTRUCTURE → AI ENGINEERING</p>
 
     <h1>
         Hi, I'm <span>Nabarun.</span>
     </h1>
 
+
     <h2>
-        I spent 20+ years keeping enterprise IT alive.
-        <br>
-        Now I'm learning how to build with AI.
+        I spent 20+ years solving problems in infrastructure.
+        Now I'm solving them with AI.
     </h2>
 
-    <p class="hero-text">
-        Windows Server. Azure. Virtualization. Cloud.
-        The 2 a.m. incident calls.
-        Then I stepped away to learn AI engineering full time —
-        and I'm doing it in the open.
+
+    <p class="hero-description">
+        Windows Server. Virtualization. Azure. Cloud.
+        Production problems that don't wait until Monday morning.
+
+        Then AI changed the questions I wanted to answer.
+
+        So I stepped away from the familiar path and started
+        learning AI engineering properly — in public.
     </p>
 
+
     <div class="buttons">
-        <a href="#journey" class="btn primary">
-            Explore the journey ↓
+
+        <a href="#work" class="btn btn-primary">
+            SEE WHAT I'M BUILDING ↓
         </a>
 
-        <a href="https://github.com/NabarunCode"
-           target="_blank"
-           class="btn">
-            GitHub ↗
+        <a
+            href="https://github.com/NabarunCode"
+            target="_blank"
+            class="btn">
+
+            GITHUB ↗
+
         </a>
+
+    </div>
+
+
+    <!-- TERMINAL -->
+
+    <div class="terminal" id="terminal">
+
+        <div class="terminal-bar">
+
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+
+        </div>
+
+
+        <div class="terminal-body">
+
+            <div>
+                <span class="term-green">$</span>
+                whoami
+            </div>
+
+            <div class="term-cyan">
+                Nabarun
+            </div>
+
+            <br>
+
+            <div>
+                <span class="term-green">$</span>
+                career --timeline
+            </div>
+
+            <div class="term-muted">
+                2000s → Windows
+            </div>
+
+            <div class="term-muted">
+                2010s → Virtualization
+            </div>
+
+            <div class="term-muted">
+                2020s → Azure / Cloud
+            </div>
+
+            <div class="term-muted">
+                2026 → AI / ML
+            </div>
+
+            <div class="term-cyan">
+                NOW → AI Engineering
+            </div>
+
+            <br>
+
+            <div>
+                <span class="term-green">$</span>
+                <span id="terminal-command"></span>
+                <span class="cursor">▋</span>
+            </div>
+
+        </div>
+
     </div>
 
 </section>
 
 
-<!-- JOURNEY -->
-<section id="journey" class="section">
 
-    <div class="section-label">01 / THE JOURNEY</div>
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about" class="section about reveal">
+
+    <div class="section-label">
+        01 / ABOUT
+    </div>
+
 
     <h2 class="section-title">
-        From keeping systems alive<br>
-        to teaching machines.
+        I'm not starting from scratch.
     </h2>
 
-    <div class="timeline">
 
-        <div class="timeline-item">
-            <div class="year">20+ YEARS</div>
+    <div class="about-grid">
 
-            <div class="timeline-content">
-                <h3>Enterprise IT</h3>
+        <div class="about-text">
 
-                <p>
-                    Windows Server, virtualization, Azure,
-                    cloud infrastructure and the endless
-                    art of troubleshooting systems under pressure.
-                </p>
+            <p>
+                I've spent most of my career around systems —
+                Windows servers, virtualization, Azure,
+                cloud infrastructure and the messy reality
+                of production troubleshooting.
+            </p>
 
-                <div class="tags">
-                    <span>Windows</span>
-                    <span>Azure</span>
-                    <span>Virtualization</span>
-                    <span>Cloud</span>
-                </div>
-            </div>
+            <p>
+                That experience taught me something I don't
+                want to leave behind: how to think about
+                systems, failures, dependencies and
+                what happens when things don't behave
+                the way the documentation promised.
+            </p>
+
+            <p>
+                Now I'm applying that systems mindset to
+                AI — learning Python, machine learning,
+                deep learning, LLMs, inference, RAG,
+                agents and MLOps.
+            </p>
+
         </div>
 
 
-        <div class="timeline-line"></div>
+        <div class="about-side">
 
+            <h3>
+                The goal
+            </h3>
 
-        <div class="timeline-item active">
+            <p>
+                Not simply to become someone who knows
+                how to use AI tools.
 
-            <div class="year">NOW</div>
-
-            <div class="timeline-content">
-
-                <h3>AI Engineering</h3>
-
-                <p>
-                    Learning AI from first principles —
-                    Python, deep learning, LLMs, RAG,
-                    agents, inference and model serving.
-                </p>
-
-                <div class="tags">
-                    <span>Python</span>
-                    <span>LLMs</span>
-                    <span>RAG</span>
-                    <span>Agents</span>
-                    <span>MLOps</span>
-                </div>
-
-            </div>
+                To understand enough of what's underneath
+                them to build useful things.
+            </p>
 
         </div>
 
@@ -153,14 +1606,159 @@
 </section>
 
 
-<!-- LEARNING -->
-<section id="learning" class="section dark-section">
 
-    <div class="section-label">02 / CURRENTLY LEARNING</div>
+<!-- =====================================================
+     JOURNEY
+===================================================== -->
+
+<section id="journey" class="section journey reveal">
+
+    <div class="section-label">
+        02 / THE JOURNEY
+    </div>
+
+
+    <h2 class="section-title">
+        Different technologies.<br>
+        Same systems mindset.
+    </h2>
+
+
+    <div class="journey-track">
+
+        <div class="journey-line"></div>
+
+
+        <div class="journey-items">
+
+
+            <div class="journey-node">
+
+                <div class="journey-dot"></div>
+
+                <div class="journey-year">
+                    EARLY CAREER
+                </div>
+
+                <h3>
+                    Systems
+                </h3>
+
+                <p>
+                    Windows Server,
+                    enterprise infrastructure
+                    and troubleshooting.
+                </p>
+
+            </div>
+
+
+            <div class="journey-node">
+
+                <div class="journey-dot"></div>
+
+                <div class="journey-year">
+                    NEXT
+                </div>
+
+                <h3>
+                    Virtualization
+                </h3>
+
+                <p>
+                    Thinking in workloads,
+                    hosts, resources and
+                    dependencies.
+                </p>
+
+            </div>
+
+
+            <div class="journey-node">
+
+                <div class="journey-dot"></div>
+
+                <div class="journey-year">
+                    CLOUD
+                </div>
+
+                <h3>
+                    Azure
+                </h3>
+
+                <p>
+                    Infrastructure moved
+                    from the datacenter
+                    into the cloud.
+                </p>
+
+            </div>
+
+
+            <div class="journey-node">
+
+                <div class="journey-dot"></div>
+
+                <div class="journey-year">
+                    NOW
+                </div>
+
+                <h3>
+                    AI / ML
+                </h3>
+
+                <p>
+                    Python, deep learning,
+                    LLMs, RAG and agents.
+                </p>
+
+            </div>
+
+
+            <div class="journey-node">
+
+                <div class="journey-dot"></div>
+
+                <div class="journey-year">
+                    DIRECTION
+                </div>
+
+                <h3>
+                    AI Engineering
+                </h3>
+
+                <p>
+                    Inference, MLOps,
+                    deployment and
+                    real systems.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CURRENTLY LEARNING
+===================================================== -->
+
+<section id="learning" class="section reveal">
+
+    <div class="section-label">
+        03 / CURRENTLY LEARNING
+    </div>
+
 
     <h2 class="section-title">
         Going deeper.
     </h2>
+
 
     <p class="section-intro">
         Not just learning how to use AI.
@@ -170,57 +1768,238 @@
 
     <div class="learning-grid">
 
-        <div class="learning-card">
-            <div class="card-number">01</div>
-            <h3>Python & Linux</h3>
-            <p>
-                Building things rather than just reading about them.
-            </p>
-        </div>
 
         <div class="learning-card">
-            <div class="card-number">02</div>
-            <h3>Deep Learning</h3>
+
+            <div class="card-number">
+                01
+            </div>
+
+            <h3>
+                Python & Linux
+            </h3>
+
             <p>
-                Practical deep learning with FastAI
-                and hands-on experimentation.
+                Building things rather than just
+                reading about them.
             </p>
+
         </div>
 
+
         <div class="learning-card">
-            <div class="card-number">03</div>
-            <h3>LLMs</h3>
+
+            <div class="card-number">
+                02
+            </div>
+
+            <h3>
+                Deep Learning
+            </h3>
+
+            <p>
+                Practical deep learning,
+                experimentation and understanding
+                what the models are actually doing.
+            </p>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <div class="card-number">
+                03
+            </div>
+
+            <h3>
+                LLMs
+            </h3>
+
             <p>
                 Transformers, tokenization,
-                inference and the machinery underneath.
+                attention, inference and
+                the machinery underneath.
             </p>
+
         </div>
 
+
         <div class="learning-card">
-            <div class="card-number">04</div>
-            <h3>RAG & Agents</h3>
+
+            <div class="card-number">
+                04
+            </div>
+
+            <h3>
+                RAG & Agents
+            </h3>
+
             <p>
-                Building systems that connect models
-                to knowledge and tools.
+                Connecting models to knowledge,
+                tools and real-world workflows.
             </p>
+
         </div>
 
+
         <div class="learning-card">
-            <div class="card-number">05</div>
-            <h3>Inference</h3>
+
+            <div class="card-number">
+                05
+            </div>
+
+            <h3>
+                Inference
+            </h3>
+
             <p>
                 Quantization, KV cache,
                 model serving and optimization.
             </p>
+
         </div>
 
+
         <div class="learning-card">
-            <div class="card-number">06</div>
-            <h3>MLOps</h3>
+
+            <div class="card-number">
+                06
+            </div>
+
+            <h3>
+                MLOps
+            </h3>
+
             <p>
-                Docker, deployment and the intersection
-                between AI and infrastructure.
+                Docker, deployment and the
+                intersection between AI and
+                infrastructure.
             </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SELECTED WORK
+===================================================== -->
+
+<section id="work" class="section work reveal">
+
+    <div class="section-label">
+        04 / SELECTED WORK
+    </div>
+
+
+    <h2 class="section-title">
+        Learning by building.
+    </h2>
+
+
+    <p class="section-intro">
+        The proof-of-work side of the journey.
+        Experiments, implementations and projects
+        that force me to understand rather than
+        simply consume.
+    </p>
+
+
+    <div class="project">
+
+
+        <div>
+
+            <div class="project-kicker">
+                ICML 2026 · RESEARCH REPRODUCTION
+            </div>
+
+
+            <h3>
+                ICML 2026<br>
+                Reproductions
+            </h3>
+
+
+            <p class="project-description">
+
+                Honest, evidence-first reproductions
+                of accepted machine-learning papers.
+
+                Read the paper, understand the theory,
+                understand the reference implementation,
+                reproduce it, benchmark it and report
+                honestly what did — and didn't — hold up.
+
+            </p>
+
+
+            <div class="project-tags">
+
+                <span>PYTHON</span>
+                <span>MACHINE LEARNING</span>
+                <span>TOKENIZATION</span>
+                <span>BENCHMARKING</span>
+                <span>REPRODUCIBILITY</span>
+
+            </div>
+
+
+            <a
+                href="https://github.com/NabarunCode/icml-2026-reproductions"
+                target="_blank"
+                class="project-link">
+
+                VIEW PROJECT ↗
+
+            </a>
+
+        </div>
+
+
+        <div class="project-side">
+
+
+            <div class="research-flow">
+
+                <div class="flow-step">
+                    <div class="flow-number">01</div>
+                    Read
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">02</div>
+                    Understand
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">03</div>
+                    Implement
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">04</div>
+                    Benchmark
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">05</div>
+                    Verify
+                </div>
+
+                <div class="flow-step">
+                    <div class="flow-number">06</div>
+                    Publish
+                </div>
+
+            </div>
+
+
         </div>
 
     </div>
@@ -228,105 +2007,277 @@
 </section>
 
 
-<!-- AI PIPELINE -->
-<section class="section pipeline-section">
 
-    <div class="section-label">03 / WHERE IT'S HEADING</div>
+<!-- =====================================================
+     CREDENTIALS
+===================================================== -->
+
+<section class="section credentials reveal">
+
+    <div class="section-label">
+        05 / CREDENTIALS
+    </div>
+
+
+    <h2 class="section-title">
+        Learning, with receipts.
+    </h2>
+
+
+    <div class="credentials-grid">
+
+
+        <div class="credential">
+
+            <div class="credential-issuer">
+                MICROSOFT
+            </div>
+
+            <h3>
+                Azure Fundamentals
+            </h3>
+
+            <p>
+                Microsoft Certified
+            </p>
+
+        </div>
+
+
+        <div class="credential">
+
+            <div class="credential-issuer">
+                MICROSOFT
+            </div>
+
+            <h3>
+                Azure AI Fundamentals
+            </h3>
+
+            <p>
+                Microsoft Certified
+            </p>
+
+        </div>
+
+
+        <div class="credential">
+
+            <div class="credential-issuer">
+                GOOGLE CLOUD
+            </div>
+
+            <h3>
+                Generative AI Leader
+            </h3>
+
+            <p>
+                Google Cloud Certification
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PIPELINE
+===================================================== -->
+
+<section class="section pipeline-section reveal">
+
+    <div class="section-label">
+        06 / THE CONNECTION
+    </div>
+
 
     <h2 class="section-title">
         Infrastructure was never wasted experience.
     </h2>
 
+
+    <p class="section-intro" style="margin:auto;">
+        The technologies changed.
+        The systems thinking didn't.
+    </p>
+
+
     <div class="pipeline">
 
+
         <div class="pipeline-node">
-            <span>01</span>
-            Systems
+
+            <small>01</small>
+
+            SYSTEMS
+
         </div>
 
-        <div class="arrow">→</div>
 
-        <div class="pipeline-node">
-            <span>02</span>
-            Cloud
+        <div class="pipeline-arrow">
+            →
         </div>
 
-        <div class="arrow">→</div>
 
         <div class="pipeline-node">
-            <span>03</span>
+
+            <small>02</small>
+
+            CLOUD
+
+        </div>
+
+
+        <div class="pipeline-arrow">
+            →
+        </div>
+
+
+        <div class="pipeline-node">
+
+            <small>03</small>
+
             AI / ML
+
         </div>
 
-        <div class="arrow">→</div>
 
-        <div class="pipeline-node highlight">
-            <span>04</span>
-            AI Engineering
+        <div class="pipeline-arrow">
+            →
         </div>
 
-        <div class="arrow">→</div>
 
         <div class="pipeline-node">
-            <span>05</span>
-            MLOps
+
+            <small>04</small>
+
+            LLMs
+
         </div>
+
+
+        <div class="pipeline-arrow">
+            →
+        </div>
+
+
+        <div class="pipeline-node">
+
+            <small>05</small>
+
+            AI ENGINEERING
+
+        </div>
+
+
+        <div class="pipeline-arrow">
+            →
+        </div>
+
+
+        <div class="pipeline-node">
+
+            <small>06</small>
+
+            MLOps
+
+        </div>
+
+
+        <div class="pipeline-pulse"></div>
 
     </div>
 
 </section>
 
 
-<!-- PHILOSOPHY -->
-<section class="quote-section">
 
-    <div class="quote-mark">"</div>
+<!-- =====================================================
+     PHILOSOPHY
+===================================================== -->
+
+<section class="philosophy reveal">
+
+    <div class="quote-mark">
+        "
+    </div>
+
 
     <blockquote>
         I'm doing it in the open —
         mistakes included.
     </blockquote>
 
+
     <p>
-        No CS degree. No traditional developer background.
-        Just curiosity, systems experience and a willingness
-        to learn from first principles.
+        Starting late doesn't mean starting from zero.
+        Sometimes the experience you already have becomes
+        the most interesting part of where you're going.
     </p>
 
 </section>
 
 
-<!-- WRITING -->
-<section id="writing" class="section">
 
-    <div class="section-label">04 / THE THINKING SIDE</div>
+<!-- =====================================================
+     WRITING
+===================================================== -->
+
+<section id="writing" class="section reveal">
+
+    <div class="section-label">
+        07 / THE THINKING SIDE
+    </div>
+
 
     <h2 class="section-title">
-        I write about the human side of technology.
+        Technology is only half the story.
     </h2>
 
 
+    <p class="section-intro">
+        I also write about technology, learning,
+        starting over and the human side of all of it.
+    </p>
+
+
     <div class="writing-grid">
+
 
         <a
             href="https://winninglate.substack.com/"
             target="_blank"
             class="writing-card">
 
-            <div class="writing-icon">◷</div>
+
+            <div class="writing-icon">
+                WL
+            </div>
+
 
             <div>
-                <h3>Winning Late</h3>
+
+                <h3>
+                    Winning Late
+                </h3>
 
                 <p>
                     The human side of starting over.
                     It's not too late — just a different clock.
                 </p>
 
-                <span>Read the newsletter →</span>
+                <span>
+                    READ THE NEWSLETTER →
+                </span>
+
             </div>
 
         </a>
+
 
 
         <a
@@ -334,34 +2285,53 @@
             target="_blank"
             class="writing-card">
 
-            <div class="writing-icon">AI</div>
+
+            <div class="writing-icon">
+                AI
+            </div>
+
 
             <div>
-                <h3>AI for the Rest of Us</h3>
+
+                <h3>
+                    AI for the Rest of Us
+                </h3>
 
                 <p>
-                    Plain-English AI for people who feel
-                    late to it. No PhD required.
+                    Plain-English AI for people who
+                    feel late to it. No PhD required.
                 </p>
 
-                <span>Read the newsletter →</span>
+                <span>
+                    READ THE NEWSLETTER →
+                </span>
+
             </div>
 
         </a>
+
 
     </div>
 
 </section>
 
 
-<!-- CONNECT -->
-<section id="connect" class="connect-section">
 
-    <div class="section-label">05 / FIND ME</div>
+<!-- =====================================================
+     CONNECT
+===================================================== -->
+
+<section id="connect" class="connect reveal">
+
+    <div class="section-label">
+        08 / FIND ME
+    </div>
+
 
     <h2>
         Let's talk technology.
     </h2>
+
 
     <p>
         Especially if you're figuring out AI
@@ -371,44 +2341,198 @@
 
     <div class="socials">
 
+
         <a
             href="https://github.com/NabarunCode"
             target="_blank">
+
             GitHub ↗
+
         </a>
+
 
         <a
             href="https://www.linkedin.com/in/nabarun-chakraborty-in/"
             target="_blank">
+
             LinkedIn ↗
+
         </a>
+
 
         <a
             href="https://x.com/nabarunzone"
             target="_blank">
+
             X ↗
+
         </a>
+
 
     </div>
 
 </section>
 
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
     <div>
-        Nabarun<span>.</span>
+        N<span class="logo"><strong>.</strong></span>
     </div>
 
-    <p>
-        Built with HTML, CSS & JavaScript.
-        Hosted on GitHub Pages.
-    </p>
+
+    <div>
+        Built with HTML, CSS & JavaScript ·
+        Hosted on GitHub Pages
+    </div>
 
 </footer>
 
 
-<script src="script.js"></script>
+
+<script>
+
+/* =========================================================
+   TERMINAL TYPING
+========================================================= */
+
+const commands = [
+    "python learn_ai.py",
+    "docker ps",
+    "build --understand",
+    "git commit -m \"keep learning\""
+];
+
+let commandIndex = 0;
+let characterIndex = 0;
+
+const terminal =
+    document.getElementById("terminal-command");
+
+
+function typeCommand() {
+
+    const command = commands[commandIndex];
+
+    if (characterIndex < command.length) {
+
+        terminal.textContent +=
+            command.charAt(characterIndex);
+
+        characterIndex++;
+
+        setTimeout(typeCommand, 65);
+
+    } else {
+
+        setTimeout(() => {
+
+            terminal.textContent = "";
+
+            characterIndex = 0;
+
+            commandIndex =
+                (commandIndex + 1) % commands.length;
+
+            typeCommand();
+
+        }, 1800);
+
+    }
+
+}
+
+typeCommand();
+
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                }
+
+            });
+
+        },
+
+        {
+            threshold: .12
+        }
+
+    );
+
+
+revealElements.forEach(element => {
+
+    observer.observe(element);
+
+});
+
+
+
+/* =========================================================
+   TERMINAL PARALLAX
+========================================================= */
+
+const terminalWindow =
+    document.getElementById("terminal");
+
+
+document.addEventListener(
+    "mousemove",
+    event => {
+
+        if (
+            window.innerWidth < 1000 ||
+            !terminalWindow
+        ) {
+            return;
+        }
+
+
+        const x =
+            (event.clientX /
+             window.innerWidth - .5);
+
+
+        const y =
+            (event.clientY /
+             window.innerHeight - .5);
+
+
+        terminalWindow.style.transform =
+            `rotate(3deg)
+             translate(${x * 14}px,
+                       ${y * 14}px)`;
+
+    }
+);
+
+</script>
+
 
 </body>
 </html>
