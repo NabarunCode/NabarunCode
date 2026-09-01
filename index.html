@@ -10,27 +10,6 @@
 <meta name="description"
 content="Nabarun — 20+ years of enterprise IT, now building toward AI engineering through hands-on learning, research reproduction and experimentation.">
 
-<script>
-/*
-  Apply saved/system theme before the page renders.
-  This prevents the "flash" of the wrong theme.
-*/
-(function () {
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "light" || savedTheme === "dark") {
-        document.documentElement.dataset.theme = savedTheme;
-    } else {
-        const prefersLight =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: light)").matches;
-
-        document.documentElement.dataset.theme =
-            prefersLight ? "light" : "dark";
-    }
-})();
-</script>
-
 <style>
 
 /* =========================================================
@@ -45,26 +24,15 @@ content="Nabarun — 20+ years of enterprise IT, now building toward AI engineer
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
 }
 
 body {
     background: var(--bg);
     color: var(--text);
-
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
-
-    transition:
-        background-color .35s ease,
-        color .35s ease;
 }
 
 a {
@@ -72,78 +40,25 @@ a {
     text-decoration: none;
 }
 
-button {
-    font: inherit;
-}
-
 
 /* =========================================================
-   VARIABLES — DARK
+   VARIABLES
 ========================================================= */
 
 :root {
-
     --bg: #07090d;
     --bg2: #0b0f16;
     --panel: #10151e;
-    --panel2: #0d131b;
-
     --line: #202733;
-    --line-hover: #344052;
 
     --text: #e8edf5;
-    --text-soft: #aeb7c5;
     --muted: #8993a4;
-    --dim: #657080;
 
     --green: #6cff9b;
     --cyan: #55e7ff;
 
-    --terminal-bg-1: rgba(15,22,29,.97);
-    --terminal-bg-2: rgba(6,10,15,.97);
-    --terminal-bar: rgba(19,25,35,.95);
-
-    --grid-line: rgba(255,255,255,.025);
-
-    --shadow: rgba(0,0,0,.55);
-
-    --mono:
-        "SFMono-Regular",
-        Consolas,
-        "Liberation Mono",
-        monospace;
-}
-
-
-/* =========================================================
-   LIGHT THEME
-========================================================= */
-
-:root[data-theme="light"] {
-
-    --bg: #f5f7f9;
-    --bg2: #eceff3;
-    --panel: #ffffff;
-    --panel2: #f0f3f6;
-
-    --line: #d8dee6;
-    --line-hover: #b6c0cc;
-
-    --text: #10151c;
-    --text-soft: #46515f;
-    --muted: #657080;
-    --dim: #8993a0;
-
-    --green: #159447;
-    --cyan: #087f99;
-
-    --terminal-bg-1: rgba(247,250,252,.98);
-    --terminal-bg-2: rgba(232,238,243,.98);
-    --terminal-bar: rgba(224,230,236,.98);
-
-    --grid-line: rgba(0,0,0,.045);
-
-    --shadow: rgba(20,30,40,.18);
+    --mono: "SFMono-Regular", Consolas,
+            "Liberation Mono", monospace;
 }
 
 
@@ -159,12 +74,12 @@ button {
 
     background-image:
         linear-gradient(
-            var(--grid-line) 1px,
+            rgba(255,255,255,.025) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            var(--grid-line) 1px,
+            rgba(255,255,255,.025) 1px,
             transparent 1px
         );
 
@@ -215,21 +130,11 @@ nav {
 
     padding: 0 7%;
 
-    background: color-mix(
-        in srgb,
-        var(--bg) 78%,
-        transparent
-    );
+    background: rgba(7,9,13,.72);
 
     backdrop-filter: blur(16px);
 
-    border-bottom:
-        1px solid
-        color-mix(
-            in srgb,
-            var(--line) 70%,
-            transparent
-        );
+    border-bottom: 1px solid rgba(255,255,255,.05);
 
     z-index: 100;
 }
@@ -242,12 +147,6 @@ nav {
 
 .logo span {
     color: var(--green);
-}
-
-.nav-right {
-    display: flex;
-    align-items: center;
-    gap: 25px;
 }
 
 .nav-links {
@@ -266,44 +165,6 @@ nav {
 
 .nav-links a:hover {
     color: var(--green);
-}
-
-
-/* =========================================================
-   THEME TOGGLE
-========================================================= */
-
-.theme-toggle {
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid var(--line);
-    border-radius: 50%;
-
-    background: transparent;
-    color: var(--text);
-
-    cursor: pointer;
-
-    transition:
-        border-color .25s,
-        background .25s,
-        transform .25s;
-}
-
-.theme-toggle:hover {
-    border-color: var(--green);
-    color: var(--green);
-    transform: rotate(12deg);
-}
-
-.theme-icon {
-    font-size: 15px;
-    line-height: 1;
 }
 
 
@@ -353,7 +214,7 @@ nav {
 .hero h1 span {
     color: transparent;
 
-    -webkit-text-stroke: 1px var(--text);
+    -webkit-text-stroke: 1px #e8edf5;
 
     transition: .4s;
 }
@@ -395,9 +256,9 @@ nav {
     position: absolute;
 
     right: 5%;
-    top: 19%;
+    top: 16%;
 
-    width: min(475px, 38vw);
+    width: min(525px, 40vw);
 
     transform:
         rotate(2.5deg)
@@ -408,12 +269,12 @@ nav {
     background:
         linear-gradient(
             145deg,
-            var(--terminal-bg-1),
-            var(--terminal-bg-2)
+            rgba(15,22,29,.97),
+            rgba(6,10,15,.97)
         );
 
     box-shadow:
-        0 35px 100px var(--shadow),
+        0 35px 100px rgba(0,0,0,.55),
         0 0 55px rgba(108,255,155,.045);
 
     transition:
@@ -463,8 +324,7 @@ nav {
             transparent
         );
 
-    animation:
-        terminalScan 5s linear infinite;
+    animation: terminalScan 5s linear infinite;
 
     pointer-events: none;
 }
@@ -478,6 +338,7 @@ nav {
     100% {
         transform: translateY(600%);
     }
+
 }
 
 .terminal-bar {
@@ -491,11 +352,11 @@ nav {
 
     gap: 7px;
 
-    background: var(--terminal-bar);
+    background:
+        rgba(19,25,35,.95);
 
     border-bottom:
-        1px solid
-        var(--line);
+        1px solid #242c37;
 }
 
 .terminal-dot {
@@ -504,7 +365,7 @@ nav {
 
     border-radius: 50%;
 
-    background: #7d8794;
+    background: #586474;
 
     box-shadow:
         0 0 8px rgba(255,255,255,.04);
@@ -515,7 +376,7 @@ nav {
 
     padding: 26px 28px 30px;
 
-    min-height: 360px;
+    min-height: 455px;
 
     font-family: var(--mono);
 
@@ -537,11 +398,11 @@ nav {
 }
 
 .term-muted {
-    color: var(--dim);
+    color: #657080;
 }
 
 .term-dim {
-    color: var(--dim);
+    color: #414b59;
 }
 
 .term-success {
@@ -551,7 +412,34 @@ nav {
         0 0 12px rgba(108,255,155,.2);
 }
 
-.cursor {
+.terminal-line {
+    min-height: 22px;
+}
+
+.terminal-output {
+    margin-left: 18px;
+
+    color: #657080;
+
+    transition:
+        opacity .4s ease;
+}
+
+.terminal-gap {
+    height: 13px;
+}
+
+.terminal-hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.terminal-output:not(.terminal-hidden) {
+    visibility: visible;
+    opacity: 1;
+}
+
+.terminal-cursor {
     color: var(--green);
 
     display: inline-block;
@@ -571,11 +459,12 @@ nav {
     100% {
         opacity: 0;
     }
+
 }
 
 .terminal.active {
     box-shadow:
-        0 35px 100px var(--shadow),
+        0 35px 100px rgba(0,0,0,.55),
         0 0 70px rgba(108,255,155,.09);
 }
 
@@ -677,7 +566,7 @@ nav {
 }
 
 .about-text {
-    color: var(--text-soft);
+    color: #aeb7c5;
 
     font-size: 17px;
 
@@ -846,12 +735,12 @@ nav {
 }
 
 .learning-card:hover {
-    background: var(--panel2);
+    background: #101720;
 
     transform: translateY(-5px);
 
     box-shadow:
-        0 20px 50px var(--shadow);
+        0 20px 50px rgba(0,0,0,.25);
 }
 
 .card-number {
@@ -905,18 +794,13 @@ nav {
 
     border: 1px solid var(--line);
 
-    background:
-        color-mix(
-            in srgb,
-            var(--bg2) 65%,
-            transparent
-        );
+    background: rgba(11,15,22,.65);
 
     transition: .35s;
 }
 
 .project:hover {
-    border-color: var(--line-hover);
+    border-color: #344052;
 
     transform: translateY(-5px);
 }
@@ -1039,56 +923,18 @@ nav {
 
 
 /* =========================================================
-   LAB
+   AI LAB
 ========================================================= */
 
 .lab {
-    background: var(--bg2);
+    background:
+        radial-gradient(
+            circle at 15% 25%,
+            rgba(108,255,155,.035),
+            transparent 30%
+        );
 
     border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-}
-
-.lab-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-
-    gap: 40px;
-}
-
-.lab-status {
-    font-family: var(--mono);
-
-    font-size: 10px;
-
-    color: var(--green);
-
-    border: 1px solid var(--line);
-
-    padding: 9px 12px;
-
-    white-space: nowrap;
-}
-
-.lab-status::before {
-    content: "●";
-
-    margin-right: 7px;
-
-    animation: statusPulse 1.8s infinite;
-}
-
-@keyframes statusPulse {
-
-    0%,
-    100% {
-        opacity: .35;
-    }
-
-    50% {
-        opacity: 1;
-    }
 }
 
 .lab-grid {
@@ -1097,34 +943,116 @@ nav {
     grid-template-columns:
         repeat(2, 1fr);
 
-    gap: 15px;
+    gap: 1px;
 
     margin-top: 65px;
+
+    background: var(--line);
+
+    border: 1px solid var(--line);
 }
 
 .lab-card {
     position: relative;
 
-    padding: 32px;
-
-    min-height: 245px;
-
-    border: 1px solid var(--line);
-
     background: var(--bg);
 
+    padding: 32px;
+
+    min-height: 250px;
+
     transition:
-        transform .3s,
-        border-color .3s,
-        background .3s;
+        transform .35s ease,
+        background .35s ease,
+        border-color .35s ease;
 }
 
 .lab-card:hover {
+    background: #101720;
+
     transform: translateY(-5px);
 
-    border-color: var(--green);
+    z-index: 2;
+}
 
-    background: var(--panel2);
+.lab-featured {
+    grid-column: span 2;
+
+    min-height: 285px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(108,255,155,.055),
+            rgba(11,15,22,.9)
+        );
+}
+
+.lab-wide {
+    grid-column: span 2;
+
+    display: grid;
+
+    grid-template-columns: .7fr 1.3fr;
+
+    gap: 50px;
+
+    align-items: center;
+}
+
+.lab-experiment {
+    grid-column: span 2;
+
+    border-top:
+        1px solid rgba(108,255,155,.15);
+}
+
+.lab-status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+
+    letter-spacing: .12em;
+
+    color: var(--green);
+
+    margin-bottom: 25px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 12px rgba(108,255,155,.7);
+
+    animation:
+        statusPulse 1.8s infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: .45;
+        transform: scale(.85);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
 }
 
 .lab-number {
@@ -1138,11 +1066,27 @@ nav {
 }
 
 .lab-card h3 {
-    font-size: 24px;
+    font-size: 27px;
 
-    letter-spacing: -.025em;
+    letter-spacing: -.035em;
 
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.lab-featured h3 {
+    font-size: clamp(38px, 5vw, 65px);
+}
+
+.lab-featured h3 span {
+    color: var(--muted);
+
+    font-size: .42em;
+
+    font-family: var(--mono);
+
+    letter-spacing: .02em;
+
+    margin-left: 10px;
 }
 
 .lab-card p {
@@ -1150,31 +1094,73 @@ nav {
 
     font-size: 13px;
 
-    line-height: 1.75;
+    line-height: 1.8;
 
-    max-width: 620px;
+    max-width: 650px;
 }
 
-.lab-meta {
+.lab-tags {
     display: flex;
 
     flex-wrap: wrap;
 
     gap: 7px;
 
-    margin-top: 22px;
+    margin-top: 25px;
 }
 
-.lab-meta span {
+.lab-tags span {
+    padding: 6px 9px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 4px;
+
     font-family: var(--mono);
 
     font-size: 9px;
 
-    color: var(--dim);
+    color: var(--muted);
+
+    transition: .25s;
+}
+
+.lab-card:hover .lab-tags span {
+    border-color: #344052;
+}
+
+.lab-architecture {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.lab-architecture span {
+    padding: 13px 15px;
 
     border: 1px solid var(--line);
 
-    padding: 5px 8px;
+    background: #0b1017;
+
+    font-family: var(--mono);
+
+    font-size: 9px;
+
+    color: var(--green);
+}
+
+.lab-architecture b {
+    color: var(--muted);
+
+    font-family: var(--mono);
+
+    font-weight: normal;
 }
 
 
@@ -1272,7 +1258,7 @@ nav {
 
     border: 1px solid var(--line);
 
-    background: var(--panel);
+    background: #0b1017;
 
     font-family: var(--mono);
 
@@ -1339,6 +1325,7 @@ nav {
         left: 92%;
         opacity: 0;
     }
+
 }
 
 
@@ -1587,7 +1574,7 @@ footer strong {
 
     .terminal {
         right: 3%;
-        width: 400px;
+        width: 430px;
     }
 
 }
@@ -1600,19 +1587,24 @@ footer strong {
 
     .journey-items {
         grid-template-columns: 1fr;
+
         gap: 30px;
     }
 
     .journey-line {
         top: 0;
         bottom: 0;
+
         left: 8px;
+
         width: 1px;
+
         height: auto;
     }
 
     .journey-node {
         padding-top: 0;
+
         padding-left: 40px;
     }
 
@@ -1628,31 +1620,33 @@ footer strong {
 
     .about-side {
         border-left: none;
-        border-top: 1px solid var(--line);
+
+        border-top:
+            1px solid var(--line);
 
         padding-left: 0;
+
         padding-top: 30px;
     }
 
     .learning-grid,
     .credentials-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
-    .lab-grid {
+    .lab-wide {
         grid-template-columns: 1fr;
+
+        gap: 30px;
     }
 
 }
 
-@media (max-width: 750px) {
+@media (max-width: 650px) {
 
     .nav-links {
         display: none;
-    }
-
-    .nav-right {
-        gap: 12px;
     }
 
     .hero {
@@ -1701,12 +1695,6 @@ footer strong {
         padding: 120px 7%;
     }
 
-    .lab-header {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 20px;
-    }
-
     footer {
         flex-direction: column;
 
@@ -1715,24 +1703,30 @@ footer strong {
         text-align: center;
     }
 
-}
-
-@media (max-width: 480px) {
-
-    nav {
-        padding: 0 6%;
+    .lab-grid {
+        grid-template-columns: 1fr;
     }
 
-    .hero h1 {
-        font-size: 52px;
+    .lab-featured,
+    .lab-wide,
+    .lab-experiment {
+        grid-column: span 1;
     }
 
-    .hero h2 {
-        font-size: 24px;
+    .lab-featured h3 {
+        font-size: 42px;
     }
 
-    .terminal-body {
-        padding: 20px;
+    .lab-featured h3 span {
+        display: block;
+
+        margin-left: 0;
+
+        margin-top: 8px;
+    }
+
+    .lab-architecture {
+        justify-content: flex-start;
     }
 
 }
@@ -1756,13 +1750,10 @@ footer strong {
         transition-duration: .01ms !important;
     }
 
-    .reveal {
-        opacity: 1;
-        transform: none;
-    }
 }
 
 </style>
+
 </head>
 
 
@@ -1782,35 +1773,21 @@ footer strong {
         N<span>.</span>
     </div>
 
-    <div class="nav-right">
+    <div class="nav-links">
 
-        <div class="nav-links">
+        <a href="#about">About</a>
 
-            <a href="#about">About</a>
-            <a href="#journey">Journey</a>
-            <a href="#work">Work</a>
-            <a href="#learning">Learning</a>
-            <a href="#lab">Lab</a>
-            <a href="#writing">Writing</a>
-            <a href="#connect">Connect</a>
+        <a href="#journey">Journey</a>
 
-        </div>
+        <a href="#work">Work</a>
 
-        <button
-            class="theme-toggle"
-            id="theme-toggle"
-            type="button"
-            aria-label="Switch to light mode"
-            title="Switch theme">
+        <a href="#learning">Learning</a>
 
-            <span
-                class="theme-icon"
-                id="theme-icon"
-                aria-hidden="true">
-                ☼
-            </span>
+        <a href="#lab">Lab</a>
 
-        </button>
+        <a href="#writing">Writing</a>
+
+        <a href="#connect">Connect</a>
 
     </div>
 
@@ -1852,14 +1829,9 @@ footer strong {
 
     <div class="buttons">
 
-        <a
-            href="#work"
-            class="btn btn-primary">
-
+        <a href="#work" class="btn btn-primary">
             SEE WHAT I'M BUILDING ↓
-
         </a>
-
 
         <a
             href="https://github.com/NabarunCode"
@@ -1876,9 +1848,7 @@ footer strong {
 
     <!-- TERMINAL -->
 
-    <div
-        class="terminal"
-        id="terminal">
+    <div class="terminal" id="terminal">
 
         <div class="terminal-bar">
 
@@ -1891,48 +1861,181 @@ footer strong {
 
         <div class="terminal-body">
 
-            <div>
-                <span class="term-green">$</span>
-                whoami
-            </div>
+            <div class="terminal-session"
+                 id="terminal-session">
 
-            <div class="term-cyan">
-                Nabarun
-            </div>
 
-            <br>
+                <!-- WHOAMI -->
 
-            <div>
-                <span class="term-green">$</span>
-                career --timeline
-            </div>
+                <div class="terminal-line terminal-command-line">
 
-            <div class="term-muted">
-                2000s → Windows
-            </div>
+                    <span class="term-green">$</span>
 
-            <div class="term-muted">
-                2010s → Virtualization
-            </div>
+                    <span id="cmd-whoami"></span>
 
-            <div class="term-muted">
-                2020s → Azure / Cloud
-            </div>
+                    <span class="terminal-cursor">
+                        ▋
+                    </span>
 
-            <div class="term-muted">
-                2026 → AI / ML
-            </div>
+                </div>
 
-            <div class="term-cyan">
-                NOW → AI Engineering
-            </div>
 
-            <br>
+                <div
+                    class="terminal-output terminal-hidden"
+                    id="output-whoami">
 
-            <div>
-                <span class="term-green">$</span>
-                <span id="terminal-command"></span>
-                <span class="cursor">▋</span>
+                    <span class="term-cyan">
+                        Nabarun
+                    </span>
+
+                </div>
+
+
+                <div class="terminal-gap"></div>
+
+
+                <!-- CAREER -->
+
+                <div
+                    class="terminal-line terminal-command-line terminal-hidden"
+                    id="line-career">
+
+                    <span class="term-green">$</span>
+
+                    <span id="cmd-career"></span>
+
+                    <span class="terminal-cursor">
+                        ▋
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="terminal-output terminal-hidden"
+                    id="output-career">
+
+                    <div>
+                        2000s → Windows
+                    </div>
+
+                    <div>
+                        2010s → Virtualization
+                    </div>
+
+                    <div>
+                        2020s → Azure / Cloud
+                    </div>
+
+                    <div>
+                        2026 → AI / ML
+                    </div>
+
+                    <div class="term-cyan">
+                        NOW → AI Engineering
+                    </div>
+
+                </div>
+
+
+                <div class="terminal-gap"></div>
+
+
+                <!-- NVIDIA -->
+
+                <div
+                    class="terminal-line terminal-command-line terminal-hidden"
+                    id="line-nvidia">
+
+                    <span class="term-green">$</span>
+
+                    <span id="cmd-nvidia"></span>
+
+                    <span class="terminal-cursor">
+                        ▋
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="terminal-output terminal-hidden"
+                    id="output-nvidia">
+
+                    <div>
+                        GPU 0&nbsp;&nbsp; NVIDIA RTX 4070
+                    </div>
+
+                    <div>
+                        VRAM&nbsp;&nbsp; 12 GB
+                    </div>
+
+                    <div>
+                        CUDA&nbsp;&nbsp;&nbsp; READY
+                    </div>
+
+                </div>
+
+
+                <div class="terminal-gap"></div>
+
+
+                <!-- DOCKER -->
+
+                <div
+                    class="terminal-line terminal-command-line terminal-hidden"
+                    id="line-docker">
+
+                    <span class="term-green">$</span>
+
+                    <span id="cmd-docker"></span>
+
+                    <span class="terminal-cursor">
+                        ▋
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="terminal-output terminal-hidden"
+                    id="output-docker">
+
+                    <div>
+                        vllm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; running
+                    </div>
+
+                    <div>
+                        open-webui&nbsp;&nbsp; running
+                    </div>
+
+                    <div>
+                        sdxl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ready
+                    </div>
+
+                </div>
+
+
+                <div class="terminal-gap"></div>
+
+
+                <!-- FINAL -->
+
+                <div
+                    class="terminal-line terminal-command-line terminal-hidden"
+                    id="line-final">
+
+                    <span class="term-green">$</span>
+
+                    <span id="terminal-command"></span>
+
+                    <span class="terminal-cursor">
+                        ▋
+                    </span>
+
+                </div>
+
+
             </div>
 
         </div>
@@ -1942,14 +2045,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      ABOUT
 ===================================================== -->
 
-<section
-    id="about"
-    class="section about reveal">
+<section id="about" class="section about reveal">
 
     <div class="section-label">
         01 / ABOUT
@@ -2011,14 +2111,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      JOURNEY
 ===================================================== -->
 
-<section
-    id="journey"
-    class="section journey reveal">
+<section id="journey" class="section journey reveal">
 
     <div class="section-label">
         02 / THE JOURNEY
@@ -2150,14 +2247,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      CURRENTLY LEARNING
 ===================================================== -->
 
-<section
-    id="learning"
-    class="section reveal">
+<section id="learning" class="section reveal">
 
     <div class="section-label">
         03 / CURRENTLY LEARNING
@@ -2294,14 +2388,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      SELECTED WORK
 ===================================================== -->
 
-<section
-    id="work"
-    class="section work reveal">
+<section id="work" class="section work reveal">
 
     <div class="section-label">
         04 / SELECTED WORK
@@ -2376,6 +2467,7 @@ footer strong {
 
         <div class="project-side">
 
+
             <div class="research-flow">
 
                 <div class="flow-step">
@@ -2410,6 +2502,7 @@ footer strong {
 
             </div>
 
+
         </div>
 
     </div>
@@ -2417,168 +2510,302 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
-     LAB
+     AI LAB
 ===================================================== -->
 
-<section
-    id="lab"
-    class="section lab reveal">
+<section id="lab" class="section lab reveal">
 
-    <div class="lab-header">
-
-        <div>
-
-            <div class="section-label">
-                05 / THE LAB
-            </div>
-
-            <h2 class="section-title">
-                Where the learning gets tested.
-            </h2>
-
-            <p class="section-intro">
-                Small experiments, practical builds and
-                deliberately messy investigations.
-                This is where concepts stop being theory
-                and start becoming things I can actually
-                explain, break and rebuild.
-            </p>
-
-        </div>
-
-
-        <div class="lab-status">
-            ACTIVE · EXPERIMENTING
-        </div>
-
+    <div class="section-label">
+        05 / AI LAB
     </div>
+
+
+    <h2 class="section-title">
+        Not just learning AI.<br>
+        Running it.
+    </h2>
+
+
+    <p class="section-intro">
+        A hands-on local AI environment where I experiment with
+        inference, containers, GPU workloads, image generation
+        and the infrastructure underneath the models.
+    </p>
 
 
     <div class="lab-grid">
 
 
-        <article class="lab-card">
+        <!-- GPU -->
 
-            <div class="lab-number">
-                LAB / 01
+        <div class="lab-card lab-featured">
+
+            <div class="lab-status">
+
+                <span class="status-dot"></span>
+
+                LOCAL AI WORKSTATION
+
             </div>
 
+
             <h3>
-                LLM Inference
+                RTX 4070
+                <span>12 GB VRAM</span>
             </h3>
 
+
             <p>
-                Exploring local model inference,
-                quantization, context windows,
-                KV cache behaviour and the practical
-                trade-offs between speed, memory
-                and model quality.
+                My local AI playground. GPU workloads, inference
+                experiments, model serving and image generation
+                running on real hardware rather than just notebooks.
             </p>
 
-            <div class="lab-meta">
-                <span>PYTHON</span>
-                <span>LLMs</span>
-                <span>INFERENCE</span>
+
+            <div class="lab-tags">
+
+                <span>NVIDIA RTX 4070</span>
+                <span>12 GB VRAM</span>
+                <span>CUDA</span>
                 <span>GPU</span>
+
             </div>
 
-        </article>
+        </div>
 
 
-        <article class="lab-card">
+        <!-- WSL -->
+
+        <div class="lab-card">
 
             <div class="lab-number">
-                LAB / 02
+                02
             </div>
 
             <h3>
-                RAG Experiments
+                WSL2 / Linux
             </h3>
 
             <p>
-                Building retrieval pipelines and testing
-                what actually happens when documents,
-                embeddings, chunking and retrieval
-                meet a language model.
+                Windows 11 as the host, Ubuntu 24.04 through WSL2,
+                and a Linux environment for experimenting with
+                modern AI tooling.
             </p>
 
-            <div class="lab-meta">
-                <span>RAG</span>
-                <span>EMBEDDINGS</span>
-                <span>RETRIEVAL</span>
-                <span>LLMs</span>
+            <div class="lab-tags">
+
+                <span>WINDOWS 11</span>
+                <span>WSL2</span>
+                <span>UBUNTU 24.04</span>
+
             </div>
 
-        </article>
+        </div>
 
 
-        <article class="lab-card">
+        <!-- DOCKER -->
+
+        <div class="lab-card">
 
             <div class="lab-number">
-                LAB / 03
+                03
             </div>
 
             <h3>
-                Agents & Tool Use
+                Docker
             </h3>
 
             <p>
-                Investigating how models can reason through
-                multi-step tasks, call tools, use external
-                information and recover when things don't
-                go according to plan.
+                Containerising AI workloads and learning how the
+                pieces fit together — images, volumes, networking,
+                GPU access and services.
             </p>
 
-            <div class="lab-meta">
-                <span>AGENTS</span>
-                <span>TOOLS</span>
-                <span>WORKFLOWS</span>
-            </div>
+            <div class="lab-tags">
 
-        </article>
-
-
-        <article class="lab-card">
-
-            <div class="lab-number">
-                LAB / 04
-            </div>
-
-            <h3>
-                AI + Infrastructure
-            </h3>
-
-            <p>
-                Applying years of infrastructure thinking
-                to AI systems — containers, GPUs, model
-                serving, networking, observability and
-                deployment.
-            </p>
-
-            <div class="lab-meta">
                 <span>DOCKER</span>
-                <span>LINUX</span>
-                <span>GPU</span>
-                <span>MLOps</span>
+                <span>CONTAINERS</span>
+                <span>GPU RUNTIME</span>
+
             </div>
 
-        </article>
+        </div>
+
+
+        <!-- VLLM -->
+
+        <div class="lab-card">
+
+            <div class="lab-number">
+                04
+            </div>
+
+            <h3>
+                vLLM
+            </h3>
+
+            <p>
+                Exploring local LLM inference and what happens
+                underneath the API: GPU memory, KV cache,
+                quantization, batching and serving.
+            </p>
+
+            <div class="lab-tags">
+
+                <span>vLLM</span>
+                <span>LLM INFERENCE</span>
+                <span>KV CACHE</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- OPEN WEBUI -->
+
+        <div class="lab-card">
+
+            <div class="lab-number">
+                05
+            </div>
+
+            <h3>
+                Open WebUI
+            </h3>
+
+            <p>
+                A practical browser interface over the local
+                inference stack — making the workstation usable
+                as a private AI environment.
+            </p>
+
+            <div class="lab-tags">
+
+                <span>OPEN WEBUI</span>
+                <span>LOCAL AI</span>
+                <span>API</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- SDXL -->
+
+        <div class="lab-card">
+
+            <div class="lab-number">
+                06
+            </div>
+
+            <h3>
+                SDXL / Image Generation
+            </h3>
+
+            <p>
+                Experimenting with local generative image
+                workflows, model behaviour, GPU memory constraints
+                and inference parameters.
+            </p>
+
+            <div class="lab-tags">
+
+                <span>SDXL</span>
+                <span>STABLE DIFFUSION</span>
+                <span>CUDA</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARCHITECTURE -->
+
+        <div class="lab-card lab-wide">
+
+            <div>
+
+                <div class="lab-number">
+                    07
+                </div>
+
+                <h3>
+                    AI + Infrastructure
+                </h3>
+
+                <p>
+                    This is where the old career becomes useful again.
+                    Servers, networking, containers, resource allocation,
+                    troubleshooting and deployment are not separate from
+                    AI engineering. They're part of it.
+                </p>
+
+            </div>
+
+
+            <div class="lab-architecture">
+
+                <span>RTX 4070</span>
+
+                <b>→</b>
+
+                <span>CUDA</span>
+
+                <b>→</b>
+
+                <span>Docker</span>
+
+                <b>→</b>
+
+                <span>vLLM</span>
+
+                <b>→</b>
+
+                <span>Open WebUI</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXPERIMENT -->
+
+        <div class="lab-card lab-experiment">
+
+            <div class="lab-status">
+
+                <span class="status-dot"></span>
+
+                EXPERIMENT LOG
+
+            </div>
+
+
+            <h3>
+                Build → Break → Understand
+            </h3>
+
+
+            <p>
+                The objective isn't simply to make something work.
+                It's to understand why it works, what breaks,
+                and what the system is doing underneath.
+            </p>
+
+        </div>
 
 
     </div>
 
 </section>
-
 
 
 <!-- =====================================================
      CREDENTIALS
 ===================================================== -->
 
-<section
-    class="section credentials reveal">
+<section class="section credentials reveal">
 
     <div class="section-label">
         06 / CREDENTIALS
@@ -2649,13 +2876,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
-     INFRA → AI PIPELINE
+     PIPELINE
 ===================================================== -->
 
-<section
-    class="section pipeline-section reveal">
+<section class="section pipeline-section reveal">
 
     <div class="section-label">
         07 / THE CONNECTION
@@ -2667,13 +2892,9 @@ footer strong {
     </h2>
 
 
-    <p
-        class="section-intro"
-        style="margin:auto;">
-
+    <p class="section-intro" style="margin:auto;">
         The technologies changed.
         The systems thinking didn't.
-
     </p>
 
 
@@ -2766,13 +2987,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      PHILOSOPHY
 ===================================================== -->
 
-<section
-    class="philosophy reveal">
+<section class="philosophy reveal">
 
     <div class="quote-mark">
         "
@@ -2794,14 +3013,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      WRITING
 ===================================================== -->
 
-<section
-    id="writing"
-    class="section reveal">
+<section id="writing" class="section reveal">
 
     <div class="section-label">
         08 / THE THINKING SIDE
@@ -2892,14 +3108,11 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      CONNECT
 ===================================================== -->
 
-<section
-    id="connect"
-    class="connect reveal">
+<section id="connect" class="connect reveal">
 
     <div class="section-label">
         09 / FIND ME
@@ -2955,7 +3168,6 @@ footer strong {
 </section>
 
 
-
 <!-- =====================================================
      FOOTER
 ===================================================== -->
@@ -2975,150 +3187,247 @@ footer strong {
 </footer>
 
 
-
 <script>
 
 /* =========================================================
-   THEME SWITCHER
+   TERMINAL SESSION ANIMATION
 ========================================================= */
 
-const themeToggle =
-    document.getElementById("theme-toggle");
-
-const themeIcon =
-    document.getElementById("theme-icon");
+const sleep = ms =>
+    new Promise(resolve => setTimeout(resolve, ms));
 
 
-function updateThemeButton(theme) {
+async function typeText(element, text, speed = 55) {
 
-    const isLight = theme === "light";
+    element.textContent = "";
 
-    themeIcon.textContent =
-        isLight ? "☾" : "☼";
+    for (const character of text) {
 
-    themeToggle.setAttribute(
-        "aria-label",
-        isLight
-            ? "Switch to dark mode"
-            : "Switch to light mode"
-    );
+        element.textContent += character;
 
-    themeToggle.setAttribute(
-        "title",
-        isLight
-            ? "Switch to dark mode"
-            : "Switch to light mode"
-    );
+        await sleep(speed);
+
+    }
+
 }
 
 
-const currentTheme =
-    document.documentElement.dataset.theme || "dark";
+function show(element) {
 
-updateThemeButton(currentTheme);
+    element.classList.remove("terminal-hidden");
+
+}
 
 
-themeToggle.addEventListener(
-    "click",
-    () => {
+function hide(element) {
 
-        const current =
-            document.documentElement.dataset.theme;
+    element.classList.add("terminal-hidden");
 
-        const next =
-            current === "dark"
-                ? "light"
-                : "dark";
+}
 
-        document.documentElement.dataset.theme =
-            next;
 
-        localStorage.setItem(
-            "theme",
-            next
+async function runTerminalSession() {
+
+    const whoami =
+        document.getElementById("cmd-whoami");
+
+    const outputWhoami =
+        document.getElementById("output-whoami");
+
+    const careerLine =
+        document.getElementById("line-career");
+
+    const career =
+        document.getElementById("cmd-career");
+
+    const outputCareer =
+        document.getElementById("output-career");
+
+    const nvidiaLine =
+        document.getElementById("line-nvidia");
+
+    const nvidia =
+        document.getElementById("cmd-nvidia");
+
+    const outputNvidia =
+        document.getElementById("output-nvidia");
+
+    const dockerLine =
+        document.getElementById("line-docker");
+
+    const docker =
+        document.getElementById("cmd-docker");
+
+    const outputDocker =
+        document.getElementById("output-docker");
+
+    const finalLine =
+        document.getElementById("line-final");
+
+    const finalCommand =
+        document.getElementById("terminal-command");
+
+
+    while (true) {
+
+
+        /* -------------------------------------------------
+           RESET
+        ------------------------------------------------- */
+
+        [
+            careerLine,
+            outputWhoami,
+            outputCareer,
+            nvidiaLine,
+            outputNvidia,
+            dockerLine,
+            outputDocker,
+            finalLine
+        ].forEach(hide);
+
+
+        whoami.textContent = "";
+
+        career.textContent = "";
+
+        nvidia.textContent = "";
+
+        docker.textContent = "";
+
+        finalCommand.textContent = "";
+
+
+        /* -------------------------------------------------
+           WHOAMI
+        ------------------------------------------------- */
+
+        await typeText(
+            whoami,
+            "whoami",
+            75
         );
 
-        updateThemeButton(next);
 
-    }
-);
+        await sleep(450);
 
 
-/* =========================================================
-   TERMINAL TYPING
-========================================================= */
-
-const commands = [
-
-    "python learn_ai.py",
-
-    "docker ps",
-
-    "build --understand",
-
-    "git commit -m \"keep learning\""
-
-];
-
-let commandIndex = 0;
-
-let characterIndex = 0;
-
-const terminal =
-    document.getElementById(
-        "terminal-command"
-    );
+        show(outputWhoami);
 
 
-function typeCommand() {
-
-    const command =
-        commands[commandIndex];
+        await sleep(1000);
 
 
-    if (
-        characterIndex <
-        command.length
-    ) {
+        /* -------------------------------------------------
+           CAREER
+        ------------------------------------------------- */
 
-        terminal.textContent +=
-            command.charAt(
-                characterIndex
-            );
+        show(careerLine);
 
-        characterIndex++;
 
-        setTimeout(
-            typeCommand,
+        await typeText(
+            career,
+            "career --timeline",
             65
         );
 
-    } else {
 
-        setTimeout(
-            () => {
+        await sleep(450);
 
-                terminal.textContent = "";
 
-                characterIndex = 0;
+        show(outputCareer);
 
-                commandIndex =
-                    (
-                        commandIndex + 1
-                    ) %
-                    commands.length;
 
-                typeCommand();
+        await sleep(1800);
 
-            },
-            1800
+
+        /* -------------------------------------------------
+           NVIDIA
+        ------------------------------------------------- */
+
+        show(nvidiaLine);
+
+
+        await typeText(
+            nvidia,
+            "nvidia-smi",
+            65
         );
+
+
+        await sleep(450);
+
+
+        show(outputNvidia);
+
+
+        await sleep(1600);
+
+
+        /* -------------------------------------------------
+           DOCKER
+        ------------------------------------------------- */
+
+        show(dockerLine);
+
+
+        await typeText(
+            docker,
+            "docker ps",
+            65
+        );
+
+
+        await sleep(450);
+
+
+        show(outputDocker);
+
+
+        await sleep(1600);
+
+
+        /* -------------------------------------------------
+           FINAL COMMAND
+        ------------------------------------------------- */
+
+        show(finalLine);
+
+
+        const commands = [
+
+            "build --understand",
+
+            "python learn_ai.py",
+
+            "git commit -m \"keep learning\""
+
+        ];
+
+
+        const command =
+            commands[
+                Math.floor(
+                    Math.random() * commands.length
+                )
+            ];
+
+
+        await typeText(
+            finalCommand,
+            command,
+            65
+        );
+
+
+        await sleep(2200);
 
     }
 
 }
 
-typeCommand();
+
+runTerminalSession();
 
 
 /* =========================================================
@@ -3126,77 +3435,40 @@ typeCommand();
 ========================================================= */
 
 const revealElements =
-    document.querySelectorAll(
-        ".reveal"
-    );
+    document.querySelectorAll(".reveal");
 
 
-const prefersReducedMotion =
-    window.matchMedia &&
-    window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    ).matches;
+const observer =
+    new IntersectionObserver(
 
+        entries => {
 
-if (!prefersReducedMotion) {
+            entries.forEach(entry => {
 
-    const observer =
-        new IntersectionObserver(
+                if (entry.isIntersecting) {
 
-            entries => {
+                    entry.target.classList.add(
+                        "visible"
+                    );
 
-                entries.forEach(
-                    entry => {
+                }
 
-                        if (
-                            entry.isIntersecting
-                        ) {
+            });
 
-                            entry.target.classList.add(
-                                "visible"
-                            );
+        },
 
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    }
-                );
-
-            },
-
-            {
-                threshold: .12
-            }
-
-        );
-
-
-    revealElements.forEach(
-        element => {
-
-            observer.observe(
-                element
-            );
-
+        {
+            threshold: .12
         }
+
     );
 
-} else {
 
-    revealElements.forEach(
-        element => {
+revealElements.forEach(element => {
 
-            element.classList.add(
-                "visible"
-            );
+    observer.observe(element);
 
-        }
-    );
-
-}
+});
 
 
 /* =========================================================
@@ -3204,43 +3476,65 @@ if (!prefersReducedMotion) {
 ========================================================= */
 
 const terminalWindow =
-    document.getElementById(
-        "terminal"
+    document.getElementById("terminal");
+
+
+document.addEventListener(
+    "mousemove",
+    event => {
+
+        if (
+            window.innerWidth < 1000 ||
+            !terminalWindow
+        ) {
+            return;
+        }
+
+
+        const x =
+            (event.clientX /
+             window.innerWidth - .5);
+
+
+        const y =
+            (event.clientY /
+             window.innerHeight - .5);
+
+
+        terminalWindow.style.transform =
+            `rotate(3deg)
+             translate(${x * 14}px,
+                       ${y * 14}px)`;
+
+    }
+);
+
+
+/* =========================================================
+   TERMINAL HOVER GLOW
+========================================================= */
+
+if (terminalWindow) {
+
+    terminalWindow.addEventListener(
+        "mouseenter",
+        () => {
+
+            terminalWindow.classList.add(
+                "active"
+            );
+
+        }
     );
 
 
-if (!prefersReducedMotion) {
+    terminalWindow.addEventListener(
+        "mouseleave",
+        () => {
 
-    document.addEventListener(
-        "mousemove",
-        event => {
-
-            if (
-                window.innerWidth < 1000 ||
-                !terminalWindow
-            ) {
-                return;
-            }
-
-
-            const x =
-                (
-                    event.clientX /
-                    window.innerWidth
-                ) - .5;
-
-
-            const y =
-                (
-                    event.clientY /
-                    window.innerHeight
-                ) - .5;
-
-
-            terminalWindow.style.transform =
-                `rotate(3deg)
-                 translate(${x * 14}px,
-                           ${y * 14}px)`;
+            terminalWindow.classList.remove(
+                "active"
+            );
 
         }
     );
