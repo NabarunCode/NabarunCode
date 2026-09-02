@@ -5,10 +5,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nabarun — From Infrastructure to AI Engineering</title>
+<title>Nabarun · From Infrastructure to AI Engineering</title>
 
 <meta name="description"
-content="Nabarun — 20+ years of enterprise IT, now building toward AI engineering through hands-on learning, research reproduction and experimentation.">
+content="Nabarun · 20+ years of enterprise IT, now learning AI engineering in public through hands-on projects, research reproduction and experimentation.">
+
+<meta name="theme-color" content="#07090d">
+
+<link rel="icon" type="image/svg+xml"
+href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%2307090d'/><text x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='700' text-anchor='middle' fill='%23e8edf5'>N<tspan fill='%236cff9b'>.</tspan></text></svg>">
+
+<!-- social share cards -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nabarun · From Infrastructure to AI Engineering">
+<meta property="og:description" content="20+ years in enterprise IT, now learning AI engineering in public: research reproductions, a local GPU lab, and notes from the journey.">
+<meta property="og:url" content="https://nabaruncode.github.io/NabarunCode/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nabarun · From Infrastructure to AI Engineering">
+<meta name="twitter:description" content="20+ years in enterprise IT, now learning AI engineering in public.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -29,10 +47,30 @@ html {
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: Inter, -apple-system, BlinkMacSystemFont,
-                 "Segoe UI", sans-serif;
+    font-family: var(--sans);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3,
+.section-title,
+.logo,
+.philosophy blockquote,
+.connect h2 {
+    font-family: var(--display);
+    font-weight: 700;
+}
+
+/* the big display lines — sharp and heavy (tight tracking kept per-element) */
+.hero h1,
+.hero h2,
+.section-title,
+.connect h2,
+.philosophy blockquote {
+    font-weight: 800;
 }
 
 a {
@@ -52,12 +90,24 @@ a {
     --line: #202733;
 
     --text: #e8edf5;
-    --muted: #8993a4;
+    --muted: #98a3b4;
 
     --green: #6cff9b;
     --cyan: #55e7ff;
 
-    --mono: "SFMono-Regular", Consolas,
+    --accent-grad: linear-gradient(
+        100deg,
+        #6cff9b,
+        #55e7ff
+    );
+
+    --sans: "Inter", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", sans-serif;
+
+    --display: "Inter", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", sans-serif;
+
+    --mono: "JetBrains Mono", "SFMono-Regular", Consolas,
             "Liberation Mono", monospace;
 }
 
@@ -143,10 +193,88 @@ nav {
     font-size: 25px;
     font-weight: 800;
     letter-spacing: -.05em;
+
+    /* button reset */
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    line-height: 1;
+
+    cursor: pointer;
+    user-select: none;
+
+    display: inline-flex;
+    align-items: baseline;
+
+    transition: transform .3s cubic-bezier(.22,.61,.36,1);
 }
 
 .logo span {
     color: var(--green);
+
+    display: inline-block;
+
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1),
+                text-shadow .3s ease;
+
+    animation: logoDot 3s ease-in-out infinite;
+}
+
+@keyframes logoDot {
+    0%, 100% { text-shadow: 0 0 0 transparent; }
+    50%      { text-shadow: 0 0 10px rgba(108,255,155,.6); }
+}
+
+.logo:hover span {
+    transform: scale(1.4) rotate(4deg);
+    text-shadow: 0 0 16px var(--green);
+}
+
+.logo:active {
+    transform: scale(.92);
+}
+
+/* mobile menu toggle (hidden on desktop) */
+.nav-toggle {
+    display: none;
+
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+
+    background: transparent;
+    border: 0;
+
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+
+    background: var(--text);
+    border-radius: 2px;
+
+    transition: transform .3s ease, opacity .3s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 .nav-links {
@@ -212,17 +340,35 @@ nav {
 }
 
 .hero h1 span {
+    background: linear-gradient(
+        100deg,
+        #5bf195 0%,
+        #55e7ff 34%,
+        #eafff7 50%,
+        #55e7ff 66%,
+        #5bf195 100%
+    );
+    background-size: 200% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
     color: transparent;
 
-    -webkit-text-stroke: 1px #e8edf5;
+    filter: drop-shadow(0 4px 26px rgba(85,231,255,.22));
 
-    transition: .4s;
+    animation: nameFlow 5s linear infinite;
 }
 
-.hero h1 span:hover {
-    color: var(--green);
+@keyframes nameFlow {
+    to { background-position: 200% center; }
+}
 
-    -webkit-text-stroke: 0;
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero h2 {
@@ -442,10 +588,15 @@ nav {
 .terminal-cursor {
     color: var(--green);
 
-    display: inline-block;
+    /* hidden by default — only the active line shows a cursor */
+    display: none;
 
     animation:
         terminalCursor .9s steps(1) infinite;
+}
+
+.terminal-command-line.active-line .terminal-cursor {
+    display: inline-block;
 }
 
 @keyframes terminalCursor {
@@ -672,7 +823,10 @@ nav {
         0 0 20px rgba(108,255,155,.25);
 }
 
-.journey-node:nth-child(3) .journey-dot {
+/* infra era stays green; the AI era (nodes 4-5) turns cyan —
+   the same infrastructure-to-AI shift the whole page is about */
+.journey-node:nth-child(4) .journey-dot,
+.journey-node:nth-child(5) .journey-dot {
     background: var(--cyan);
 
     box-shadow:
@@ -919,6 +1073,18 @@ nav {
     font-family: var(--mono);
 
     font-size: 11px;
+}
+
+.project-more {
+    grid-template-columns: 1fr;
+
+    margin-top: 18px;
+}
+
+.project-more h3 {
+    font-size: clamp(24px, 3vw, 34px);
+
+    margin-bottom: 14px;
 }
 
 
@@ -1184,6 +1350,9 @@ nav {
 }
 
 .credential {
+    display: flex;
+    flex-direction: column;
+
     padding: 30px;
 
     border: 1px solid var(--line);
@@ -1197,14 +1366,52 @@ nav {
     transform: translateY(-4px);
 }
 
+.credential-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
 .credential-issuer {
     font-family: var(--mono);
 
     font-size: 10px;
 
     color: var(--green);
+}
 
-    margin-bottom: 20px;
+.credential-seal {
+    width: 17px;
+    height: 17px;
+
+    color: var(--muted);
+    opacity: .5;
+
+    transition: .3s;
+}
+
+.credential:hover .credential-seal {
+    color: var(--green);
+    opacity: 1;
+}
+
+.credential-verify {
+    margin-top: auto;
+    padding-top: 18px;
+
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .04em;
+
+    color: var(--muted);
+
+    transition: .25s;
+}
+
+.credential:hover .credential-verify {
+    color: var(--green);
 }
 
 .credential h3 {
@@ -1231,8 +1438,6 @@ nav {
 
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-
-    text-align: center;
 }
 
 .pipeline {
@@ -1240,7 +1445,7 @@ nav {
 
     display: flex;
 
-    justify-content: center;
+    justify-content: flex-start;
 
     align-items: center;
 
@@ -1283,24 +1488,48 @@ nav {
     margin-bottom: 7px;
 }
 
+/* connector channel between nodes (was an ASCII arrow) */
 .pipeline-arrow {
-    color: var(--green);
+    align-self: center;
 
-    font-size: 20px;
+    width: 26px;
+    height: 2px;
+
+    border-radius: 2px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(108,255,155,.45),
+        rgba(85,231,255,.45)
+    );
+
+    font-size: 0;   /* hide the → glyph */
 }
 
+/* a glowing segment that sweeps across the pipeline (like the lab line) */
 .pipeline-pulse {
     position: absolute;
+    top: calc(50% - 1.5px);
+    left: 0;
 
-    width: 6px;
-    height: 6px;
+    width: 72px;
+    height: 3px;
 
-    border-radius: 50%;
+    border-radius: 3px;
 
-    background: var(--green);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--green),
+        var(--cyan),
+        transparent
+    );
 
-    box-shadow:
-        0 0 15px var(--green);
+    box-shadow: 0 0 16px rgba(108,255,155,.6);
+
+    pointer-events: none;
+
+    z-index: 3;
 
     animation:
         pipelineMove 5s infinite linear;
@@ -1309,21 +1538,29 @@ nav {
 @keyframes pipelineMove {
 
     0% {
-        left: 8%;
+        left: -72px;
         opacity: 0;
     }
 
-    10% {
+    8% {
         opacity: 1;
     }
 
-    90% {
+    92% {
         opacity: 1;
     }
 
     100% {
-        left: 92%;
+        left: 100%;
         opacity: 0;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .pipeline-pulse {
+        display: none;   /* pipeline stacks vertically on mobile */
     }
 
 }
@@ -1347,6 +1584,11 @@ nav {
     opacity: .45;
 
     line-height: .4;
+}
+
+.quote-mark-close {
+    line-height: 1;
+    margin-top: 22px;
 }
 
 .philosophy blockquote {
@@ -1459,13 +1701,11 @@ nav {
 .connect {
     padding: 170px 10%;
 
-    text-align: center;
-
     border-top: 1px solid var(--line);
 
     background:
         radial-gradient(
-            circle at center,
+            circle at 30% 40%,
             rgba(108,255,155,.07),
             transparent 45%
         );
@@ -1482,7 +1722,7 @@ nav {
 .connect p {
     max-width: 600px;
 
-    margin: 25px auto 40px;
+    margin: 25px 0 40px;
 
     color: var(--muted);
 }
@@ -1490,7 +1730,7 @@ nav {
 .socials {
     display: flex;
 
-    justify-content: center;
+    justify-content: flex-start;
 
     flex-wrap: wrap;
 
@@ -1501,6 +1741,7 @@ nav {
     padding: 12px 19px;
 
     border: 1px solid var(--line);
+    border-radius: 5px;
 
     font-family: var(--mono);
 
@@ -1645,8 +1886,47 @@ footer strong {
 
 @media (max-width: 650px) {
 
+    .nav-toggle {
+        display: flex;
+    }
+
     .nav-links {
-        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+
+        flex-direction: column;
+        gap: 0;
+
+        padding: 6px 7% 16px;
+
+        background: rgba(7,9,13,.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255,255,255,.06);
+
+        font-size: 13px;
+
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+
+        transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .nav-links.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .nav-links a {
+        padding: 14px 2px;
+        border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .nav-links a::after {
+        display: none;   /* no underline animation in the stacked menu */
     }
 
     .hero {
@@ -1752,12 +2032,789 @@ footer strong {
 
 }
 
+
+/* =========================================================
+   POLISH LAYER — typography, entrance, motion, hover
+========================================================= */
+
+/* --- global niceties --- */
+
+::selection {
+    background: rgba(108,255,155,.24);
+    color: #fff;
+}
+
+:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1b2431;
+    border-radius: 10px;
+    border: 3px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2a3644;
+}
+
+body {
+    letter-spacing: -.011em;
+}
+
+.section-title,
+.philosophy blockquote,
+.connect h2,
+.hero h1 {
+    text-wrap: balance;
+}
+
+
+/* --- gradient accent on eyebrows / labels --- */
+
+.eyebrow,
+.section-label {
+    background: var(--accent-grad);
+    background-size: 180% 100%;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    animation: gradientShift 8s ease infinite;
+}
+
+
+/* --- scroll progress bar --- */
+
+/* progress bar sits at the nav's bottom edge — also separates nav from page */
+.scroll-progress {
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    height: 2px;
+    width: 0;
+
+    background: var(--accent-grad);
+
+    box-shadow: 0 0 12px rgba(108,255,155,.55);
+
+    transition: width .08s linear;
+}
+
+
+/* --- nav polish --- */
+
+nav {
+    transition: height .3s ease, background .3s ease;
+}
+
+nav.scrolled {
+    height: 60px;
+    background: rgba(7,9,13,.85);
+}
+
+.nav-links a {
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 100%;
+    bottom: -7px;
+
+    height: 1px;
+
+    background: var(--green);
+
+    transition: right .28s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    right: 0;
+}
+
+.nav-links a.active {
+    color: var(--green);
+}
+
+
+/* --- hero: two-column grid so copy & terminal can never collide --- */
+
+@media (min-width: 1001px) {
+
+    .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) min(440px, 36vw);
+        align-items: center;
+        column-gap: 5%;
+
+        padding-top: 120px;
+        padding-bottom: 90px;
+    }
+
+    .hero-content {
+        min-width: 0;   /* let the big heading wrap inside the column */
+    }
+
+    /* terminal now lives in its own column instead of floating on top */
+    .terminal {
+        position: static;
+        right: auto;
+        top: auto;
+        width: 100%;
+        justify-self: end;
+    }
+
+}
+
+/* slightly calmer heading scale so a long name fits its column cleanly */
+.hero h1 {
+    font-size: clamp(52px, 7.6vw, 118px);
+}
+
+.hero h1 span {
+    display: inline-block;   /* keeps the gradient name on its own wrap unit */
+}
+
+
+/* --- hero entrance --- */
+
+@keyframes heroIn {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes termIn {
+    from {
+        opacity: 0;
+        transform: rotate(2.5deg) translate3d(46px, 22px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(2.5deg) translate3d(0, 0, 0);
+    }
+}
+
+.hero .eyebrow      { animation: heroIn .7s ease both .05s; }
+.hero h1            { animation: heroIn .85s cubic-bezier(.22,.61,.36,1) both .16s; }
+.hero h2            { animation: heroIn .85s cubic-bezier(.22,.61,.36,1) both .30s; }
+.hero-description   { animation: heroIn .85s ease both .44s; }
+.hero .buttons      { animation: heroIn .85s ease both .58s; }
+.terminal           { animation: termIn 1s cubic-bezier(.22,.61,.36,1) both .5s; }
+
+/* the gradient name keeps flowing after entrance */
+.hero h1 span { animation: nameFlow 5s linear infinite; }
+
+
+/* --- staggered reveal for card grids --- */
+
+.reveal :is(
+    .learning-grid,
+    .lab-grid,
+    .credentials-grid,
+    .journey-items,
+    .writing-grid,
+    .research-flow
+) > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.reveal.visible :is(
+    .learning-grid,
+    .lab-grid,
+    .credentials-grid,
+    .journey-items,
+    .writing-grid,
+    .research-flow
+) > * {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal.visible :is(
+    .learning-grid,
+    .lab-grid,
+    .credentials-grid,
+    .journey-items,
+    .writing-grid,
+    .research-flow
+) > *:nth-child(1) { transition-delay: .05s; }
+
+.reveal.visible :is(
+    .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+) > *:nth-child(2) { transition-delay: .12s; }
+
+.reveal.visible :is(
+    .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+) > *:nth-child(3) { transition-delay: .19s; }
+
+.reveal.visible :is(
+    .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+) > *:nth-child(4) { transition-delay: .26s; }
+
+.reveal.visible :is(
+    .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+) > *:nth-child(5) { transition-delay: .33s; }
+
+.reveal.visible :is(
+    .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+) > *:nth-child(6) { transition-delay: .40s; }
+
+.reveal.visible :is(
+    .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+) > *:nth-child(n+7) { transition-delay: .47s; }
+
+
+/* --- richer hover glow on cards --- */
+
+.learning-card,
+.lab-card,
+.credential,
+.writing-card,
+.pipeline-node,
+.project {
+    will-change: transform;
+}
+
+.learning-card:hover,
+.lab-card:hover,
+.credential:hover,
+.writing-card:hover,
+.pipeline-node:hover,
+.project:hover {
+    box-shadow:
+        0 22px 60px rgba(0,0,0,.4),
+        0 0 0 1px rgba(108,255,155,.16),
+        0 0 46px -14px rgba(108,255,155,.45);
+}
+
+
+/* --- button shine --- */
+
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -130%;
+
+    width: 55%;
+    height: 100%;
+
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255,255,255,.22),
+        transparent
+    );
+
+    transform: skewX(-18deg);
+
+    pointer-events: none;
+}
+
+.btn:hover::after {
+    animation: btnShine .8s ease;
+}
+
+@keyframes btnShine {
+    to { left: 140%; }
+}
+
+
+/* --- cursor-follow glow --- */
+
+.glow {
+    left: 0;
+    top: 0;
+
+    transform: translate3d(-50%, -50%, 0);
+
+    transition: transform .28s cubic-bezier(.22,.61,.36,1);
+}
+
+
+/* =========================================================
+   AI LAB — graphical stack diagram
+========================================================= */
+
+.lab-stack {
+    position: relative;
+    margin-top: 60px;
+    padding-left: 36px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.lab-stack-spine {
+    position: absolute;
+    left: 9px;
+    top: 10px;
+    bottom: 10px;
+
+    width: 2px;
+    border-radius: 2px;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(85,231,255,.55),
+        rgba(108,255,155,.55)
+    );
+}
+
+.lab-pulse {
+    position: absolute;
+    left: 50%;
+    top: 0;
+
+    width: 4px;
+    height: 56px;
+
+    border-radius: 4px;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--green),
+        transparent
+    );
+
+    box-shadow: 0 0 14px var(--green);
+
+    transform: translateX(-50%);
+
+    animation: labPulse 4.5s linear infinite;
+}
+
+@keyframes labPulse {
+    0%   { top: 0;    opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.lab-layer {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 172px 1fr;
+    gap: 28px;
+
+    padding: 24px 30px;
+
+    border: 1px solid var(--line);
+
+    background: linear-gradient(
+        135deg,
+        rgba(16,21,30,.9),
+        rgba(9,13,19,.9)
+    );
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+/* downward arrow marker, centred on the spine — signals top→down flow */
+/* faint connector tick at each deck's centre; the moving glow carries the motion */
+.lab-layer::before {
+    content: "";
+
+    position: absolute;
+    left: -26px;          /* start at the spine centre, relative to the card */
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 20px;
+    height: 1px;
+
+    background: rgba(232,237,245,.16);
+}
+
+/* deck glow — each card lights up as the pulse passes it */
+.lab-layer::after {
+    content: "";
+
+    position: absolute;
+    inset: -1px;
+
+    pointer-events: none;
+
+    border: 1px solid rgba(108,255,155,.55);
+
+    box-shadow: 0 0 46px -8px rgba(108,255,155,.5);
+
+    opacity: 0;
+
+    animation: deckGlow 4.5s linear infinite;
+    animation-delay: calc(var(--i, 1) * 1.125s - 0.83s);
+}
+
+@keyframes deckGlow {
+    0%, 13%, 100% { opacity: 0; }
+    6%            { opacity: 1; }
+}
+
+/* faint tech watermark per deck — texture, not a sticker */
+.lab-layer-meta,
+.lab-layer-main {
+    position: relative;
+    z-index: 1;
+}
+
+.lab-watermark {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+
+    width: 150px;
+    height: 150px;
+
+    transform: translateY(-50%);
+
+    fill: #e8edf5;
+    opacity: .05;
+
+    pointer-events: none;
+    z-index: 0;
+
+    transition: opacity .35s ease, fill .35s ease;
+}
+
+.lab-layer:hover .lab-watermark {
+    opacity: .1;
+    fill: var(--green);
+}
+
+@media (max-width: 760px) {
+    .lab-watermark { display: none; }
+}
+
+.lab-layer:hover {
+    transform: translateX(5px);
+    border-color: rgba(108,255,155,.4);
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.4),
+        0 0 40px -16px rgba(108,255,155,.4);
+}
+
+.lab-layer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 3px;
+}
+
+.lab-layer-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .13em;
+    color: var(--green);
+}
+
+.lab-layer-note {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #5b6675;
+}
+
+.lab-layer-main h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.lab-layer-main p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 15px;
+}
+
+.lab-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.lab-chips span {
+    padding: 6px 11px;
+
+    border: 1px solid var(--line);
+    border-radius: 4px;
+
+    background: #0b1017;
+
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+
+    transition: .25s;
+}
+
+.lab-layer:hover .lab-chips span {
+    border-color: #31404f;
+    color: #c7d0dc;
+}
+
+/* a reflective closing note — plain text, set apart from the stack */
+.lab-footnote {
+    margin-top: 60px;
+    margin-left: 36px;      /* stay on the stack's left axis */
+    padding-top: 32px;
+
+    border-top: 1px solid var(--line);
+
+    max-width: 820px;
+}
+
+.lab-footnote .lab-status {
+    margin-bottom: 18px;
+}
+
+.lab-footnote p {
+    color: var(--muted);
+    font-size: 14.5px;
+    line-height: 1.85;
+    max-width: 820px;
+}
+
+.lab-footnote em {
+    color: var(--text);
+    font-style: normal;
+    border-bottom: 1px solid rgba(108,255,155,.5);
+}
+
+/* Build → Break → Understand — each word breathes, in sequence */
+.cycle-word {
+    display: inline-block;
+    animation: wordBreathe 2.7s ease-in-out infinite;
+}
+
+@keyframes wordBreathe {
+    0%, 100% { opacity: .5;  text-shadow: none; }
+    50%      { opacity: 1;   text-shadow: 0 0 12px rgba(108,255,155,.55); }
+}
+
+/* staggered entrance for the layers */
+.lab .lab-layer {
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity .55s ease, transform .55s ease;
+    transition-delay: calc(var(--i, 0) * .09s);
+}
+
+.lab.visible .lab-layer {
+    opacity: 1;
+    transform: none;
+}
+
+@media (max-width: 760px) {
+
+    .lab-layer {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .lab-footnote {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lab .lab-layer {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .lab-pulse { display: none; }
+
+}
+
+
+/* --- reduced motion: land everything in final state --- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .reveal :is(
+        .learning-grid,.lab-grid,.credentials-grid,.journey-items,.writing-grid,.research-flow
+    ) > * {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .glow { display: none; }
+
+}
+
+
+/* =========================================================
+   EVIDENCE · NOW · SCROLL CUE · SKIP LINK
+========================================================= */
+
+.project-result {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+
+    margin-top: 26px;
+    padding: 15px 18px;
+
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--green);
+
+    background: rgba(108,255,155,.04);
+}
+
+.project-result-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .14em;
+    color: var(--green);
+    padding-top: 3px;
+}
+
+.project-result-paper {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: var(--text);
+}
+
+.project-result-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--muted);
+}
+
+.lab-metric {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+.lab-metric strong {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.hero-now {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 26px;
+    padding: 9px 15px;
+
+    max-width: 100%;
+
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: rgba(11,15,22,.5);
+
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--muted);
+
+    animation: heroIn .85s ease both .7s;
+}
+
+.hero-now b { color: var(--green); font-weight: 600; }
+
+.hero-now .status-dot { flex-shrink: 0; }
+
+.scroll-cue {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-family: var(--mono);
+    font-size: 20px;
+    line-height: 1;
+    color: var(--muted);
+
+    z-index: 4;
+
+    animation: scrollBounce 1.8s ease-in-out infinite;
+}
+
+.scroll-cue:hover { color: var(--green); }
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0);   opacity: .45; }
+    50%      { transform: translateX(-50%) translateY(6px); opacity: 1; }
+}
+
+@media (max-width: 1000px) {
+    .scroll-cue { display: none; }
+}
+
+.skip-link {
+    position: fixed;
+    top: -60px;
+    left: 12px;
+    z-index: 300;
+
+    padding: 10px 16px;
+    border-radius: 6px;
+
+    background: var(--green);
+    color: #071009;
+
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: top .2s ease;
+}
+
+.skip-link:focus { top: 12px; }
+
 </style>
 
 </head>
 
 
 <body>
+
+<a href="#main" class="skip-link">Skip to content</a>
 
 <div class="grid"></div>
 <div class="glow"></div>
@@ -1769,9 +2826,9 @@ footer strong {
 
 <nav>
 
-    <div class="logo">
+    <button type="button" class="logo" id="logo" aria-label="Nabarun — back to top">
         N<span>.</span>
-    </div>
+    </button>
 
     <div class="nav-links">
 
@@ -1791,7 +2848,19 @@ footer strong {
 
     </div>
 
+    <button type="button" class="nav-toggle" id="navToggle"
+            aria-label="Open menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
 </nav>
+
+
+<main id="main">
 
 
 <!-- =====================================================
@@ -1799,6 +2868,8 @@ footer strong {
 ===================================================== -->
 
 <section class="hero">
+
+  <div class="hero-content">
 
     <div class="eyebrow">
         IT INFRASTRUCTURE → AI ENGINEERING
@@ -1812,7 +2883,7 @@ footer strong {
 
     <h2>
         I spent 20+ years solving problems in infrastructure.
-        Now I'm solving them with AI.
+        Now I'm learning to solve them with AI.
     </h2>
 
 
@@ -1823,7 +2894,7 @@ footer strong {
         Then AI changed the questions I wanted to answer.
 
         So I stepped away from the familiar path and started
-        learning AI engineering properly — in public.
+        learning AI engineering properly. In public.
     </p>
 
 
@@ -1844,6 +2915,14 @@ footer strong {
         </a>
 
     </div>
+
+
+    <div class="hero-now">
+        <span class="status-dot"></span>
+        <span><b>Right now</b> · reproducing an ICML 2026 tokenization paper and benchmarking local inference on the 4070</span>
+    </div>
+
+  </div><!-- /.hero-content -->
 
 
     <!-- TERMINAL -->
@@ -1932,7 +3011,7 @@ footer strong {
                     </div>
 
                     <div class="term-cyan">
-                        NOW → AI Engineering
+                        NEXT → AI Engineering
                     </div>
 
                 </div>
@@ -2042,6 +3121,8 @@ footer strong {
 
     </div>
 
+    <a href="#about" class="scroll-cue" aria-label="Scroll to content">↓</a>
+
 </section>
 
 
@@ -2066,25 +3147,26 @@ footer strong {
         <div class="about-text">
 
             <p>
-                I've spent most of my career around systems —
-                Windows servers, virtualization, Azure,
-                cloud infrastructure and the messy reality
-                of production troubleshooting.
+                For 20 years, my job was keeping systems
+                alive. Windows servers, virtualization,
+                Azure, cloud. The messy reality of
+                production, where problems don't wait
+                until Monday morning.
             </p>
 
             <p>
-                That experience taught me something I don't
-                want to leave behind: how to think about
-                systems, failures, dependencies and
-                what happens when things don't behave
-                the way the documentation promised.
+                That work taught me something I'm not
+                leaving behind. How to think in systems.
+                How things break. What really happens
+                when they don't behave the way the docs
+                promised.
             </p>
 
             <p>
-                Now I'm applying that systems mindset to
-                AI — learning Python, machine learning,
-                deep learning, LLMs, inference, RAG,
-                agents and MLOps.
+                Now I point that same instinct at AI.
+                Python, machine learning, deep learning,
+                LLMs, inference, RAG, agents, MLOps.
+                Same brain, new stack.
             </p>
 
         </div>
@@ -2097,11 +3179,10 @@ footer strong {
             </h3>
 
             <p>
-                Not simply to become someone who knows
-                how to use AI tools.
-
-                To understand enough of what's underneath
-                them to build useful things.
+                Not just to become someone who can use
+                AI tools. I want to understand enough of
+                what's under the hood to build things
+                that actually work.
             </p>
 
         </div>
@@ -2141,7 +3222,7 @@ footer strong {
                 <div class="journey-dot"></div>
 
                 <div class="journey-year">
-                    EARLY CAREER
+                    2000s
                 </div>
 
                 <h3>
@@ -2162,7 +3243,7 @@ footer strong {
                 <div class="journey-dot"></div>
 
                 <div class="journey-year">
-                    NEXT
+                    2010s
                 </div>
 
                 <h3>
@@ -2183,7 +3264,7 @@ footer strong {
                 <div class="journey-dot"></div>
 
                 <div class="journey-year">
-                    CLOUD
+                    2020s
                 </div>
 
                 <h3>
@@ -2224,7 +3305,7 @@ footer strong {
                 <div class="journey-dot"></div>
 
                 <div class="journey-year">
-                    DIRECTION
+                    NEXT
                 </div>
 
                 <h3>
@@ -2436,9 +3517,26 @@ footer strong {
                 Read the paper, understand the theory,
                 understand the reference implementation,
                 reproduce it, benchmark it and report
-                honestly what did — and didn't — hold up.
+                honestly what held up, and what didn't.
 
             </p>
+
+
+            <div class="project-result">
+
+                <span class="project-result-label">LATEST</span>
+
+                <div>
+                    <div class="project-result-paper">
+                        Incremental BPE Tokenization · Jiang &amp; Gong
+                    </div>
+                    <div class="project-result-status">
+                        2 claims reproduced · 1 partial ·
+                        1 correctness-verified · nothing falsified
+                    </div>
+                </div>
+
+            </div>
 
 
             <div class="project-tags">
@@ -2507,6 +3605,34 @@ footer strong {
 
     </div>
 
+
+    <a href="https://github.com/NabarunCode"
+       target="_blank" rel="noopener noreferrer"
+       class="project project-more">
+
+        <div>
+
+            <div class="project-kicker">
+                MORE
+            </div>
+
+            <h3>
+                More experiments on GitHub
+            </h3>
+
+            <p class="project-description">
+                Smaller reproductions, notebooks and infrastructure
+                experiments as I work through them, rough edges and all.
+            </p>
+
+            <span class="project-link">
+                BROWSE THE REPOS ↗
+            </span>
+
+        </div>
+
+    </a>
+
 </section>
 
 
@@ -2522,8 +3648,8 @@ footer strong {
 
 
     <h2 class="section-title">
-        Not just learning AI.<br>
-        Running it.
+        Not just reading about it.<br>
+        Running it locally.
     </h2>
 
 
@@ -2534,267 +3660,151 @@ footer strong {
     </p>
 
 
-    <div class="lab-grid">
+    <!-- LAB STACK — apps on top, metal at the foundation -->
 
+    <div class="lab-stack">
 
-        <!-- GPU -->
-
-        <div class="lab-card lab-featured">
-
-            <div class="lab-status">
-
-                <span class="status-dot"></span>
-
-                LOCAL AI WORKSTATION
-
-            </div>
-
-
-            <h3>
-                RTX 4070
-                <span>12 GB VRAM</span>
-            </h3>
-
-
-            <p>
-                My local AI playground. GPU workloads, inference
-                experiments, model serving and image generation
-                running on real hardware rather than just notebooks.
-            </p>
-
-
-            <div class="lab-tags">
-
-                <span>NVIDIA RTX 4070</span>
-                <span>12 GB VRAM</span>
-                <span>CUDA</span>
-                <span>GPU</span>
-
-            </div>
-
+        <div class="lab-stack-spine">
+            <span class="lab-pulse"></span>
         </div>
 
 
-        <!-- WSL -->
+        <!-- L4 · INTERFACE -->
 
-        <div class="lab-card">
+        <div class="lab-layer" style="--i:1">
 
-            <div class="lab-number">
-                02
+            <svg class="lab-watermark" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.4446 11.5059c0 1.1021.1673 2.1585.4847 3.1563-.0378-.0028-.0691-.0058-.1058-.0058-.4209 0-.8015.16-1.0704.4512-.3454.3737-.4984.8335-.4316 1.293a1.576 1.576 0 0 0 .2148.5978c-.2319.1864-.4018.4456-.4844.7578-.0646.2448-.131.7543.2149 1.2794a1.4552 1.4552 0 0 0-.0625.1055c-.208.3923-.2207.8372-.0371 1.25.2783.6258.9696 1.1175 2.3126 1.6467.8356.3292 1.5988.5411 1.6056.543 1.1046.2847 2.104.4277 2.969.4277 1.4173 0 2.4754-.3849 3.1525-1.1446 1.538.2651 2.791.1403 3.592.006.6773.7555 1.7332 1.1387 3.1467 1.1387.8649 0 1.8643-.143 2.969-.4278.0068-.0019.77-.2138 1.6056-.543 1.343-.5292 2.0343-1.0208 2.3126-1.6466.1836-.4129.171-.8577-.037-1.25a1.4685 1.4685 0 0 0-.0626-.1056c.346-.525.2795-1.0346.2149-1.2793-.0826-.3122-.2525-.5714-.4844-.7579.11-.1816.1831-.3788.2148-.5977.0669-.4595-.0862-.9193-.4316-1.293-.2688-.2913-.6495-.4513-1.0704-.4513-.0209 0-.0376.0008-.0588.0018.3162-.9966.4846-2.0518.4846-3.1523 0-5.807-4.7362-10.5144-10.5789-10.5144-5.8426 0-10.5788 4.7073-10.5788 10.5144Zm10.5788-9.4831c5.2727 0 9.5476 4.246 9.5476 9.483a9.4201 9.4201 0 0 1-.2696 2.2365c-.0039-.0047-.0079-.011-.0117-.0156-.274-.3255-.6679-.5059-1.1075-.5059-.352 0-.714.1155-1.0763.3438-.2403.1517-.5058.422-.7793.7598-.2534-.3492-.608-.5832-1.0137-.6465a1.5174 1.5174 0 0 0-.2344-.0176c-.9263 0-1.4828.7993-1.6935 1.5177-.1046.2426-.6065 1.3482-1.3614 2.0978-1.1681 1.1601-1.4458 2.3534-.8396 3.6382-.843.1029-1.5836.0927-2.365-.006.5906-1.212.3626-2.4388-.8426-3.6322-.755-.7496-1.2568-1.8552-1.3614-2.0978-.2107-.7184-.7673-1.5177-1.6935-1.5177-.078 0-.1568.0054-.2344.0176-.4057.0633-.7604.2973-1.0137.6465-.2735-.3379-.539-.6081-.7794-.7598-.3622-.2283-.7243-.3438-1.0762-.3438-.4266 0-.8094.171-1.0821.4786a9.4208 9.4208 0 0 1-.2598-2.1936c0-5.237 4.2749-9.483 9.5475-9.483zM8.6443 7.0036c-.4838.0043-.9503.2667-1.1934.7227-.3536.6633-.1006 1.4873.5645 1.84.351.1862.4883-.5261.836-.6485.3107-.1095.841.399 1.0078.086.3536-.6634.1025-1.4874-.5625-1.84a1.3659 1.3659 0 0 0-.6524-.1602Zm6.8403 0c-.2199-.002-.4426.05-.6504.1602-.665.3526-.9181 1.1766-.5645 1.84.1669.313.6971-.1955 1.0079-.086.3476.1224.4867.8347.838.6485.6649-.3527.916-1.1767.5624-1.84-.243-.456-.7096-.7184-1.1934-.7227Zm-9.7565 1.418a.8768.8768 0 0 0-.877.877c0 .4846.3925.877.877.877a.8768.8768 0 0 0 .877-.877.8768.8768 0 0 0-.877-.877zm12.6434 0c-.4845 0-.879.3925-.879.877 0 .4846.3945.877.879.877a.8768.8768 0 0 0 .877-.877.8768.8768 0 0 0-.877-.877zM8.7927 11.459c-.179-.003-.2793.1107-.2793.416 0 .8097.3874 2.125 1.4279 2.924.207-.7123 1.3453-1.2832 1.5079-1.2012.2315.1167.2191.4417.6074.7266.3884-.285.374-.6098.6056-.7266.1627-.082 1.3009.4889 1.5079 1.2012 1.0404-.799 1.4278-2.1144 1.4278-2.924 0-1.2212-1.583.6402-3.5413.6485-1.4686-.0061-2.7266-1.0558-3.2639-1.0645zM4.312 14.4768c.5792.365 1.6964 2.2751 2.1056 3.0177.1371.2488.371.3536.582.3536.4188 0 .7465-.4138.0391-.9395-1.0636-.791-.6914-2.0846-.1836-2.1642a.4302.4302 0 0 1 .0664-.004c.4616 0 .666.7892.666.7892s.5959 1.4898 1.6213 2.508c.942.9356 1.062 1.703.4961 2.6661-.0164-.004-.0159.0236-.1484.2149-.1853.2673-.4322.4688-.7188.6152-.5062.2269-1.1397.2696-1.7833.2696-1.037 0-2.1017-.1824-2.6975-.336-.0293-.0075-3.6505-.9567-3.1916-1.8224.0771-.1454.2033-.2031.3633-.2031.6463 0 1.823.9551 2.3283.9551.113 0 .196-.0865.2285-.2031.2249-.8045-3.2787-1.0522-2.9846-2.1642.0519-.1967.193-.2757.3907-.2754.854 0 2.7704 1.4923 3.172 1.4923.0307 0 .0525-.0085.0645-.0274.2012-.3227.1096-.5865-1.3087-1.4395-1.4182-.8533-2.4315-1.329-1.8653-1.9416.0651-.0707.1574-.1015.2695-.1015.8611.0002 2.8948 1.84 2.8948 1.84s.5487.5683.8809.5683c.0762 0 .1416-.0315.1855-.1054.2355-.3946-2.1858-2.2183-2.3224-2.971-.0926-.51.0641-.7676.3555-.7676-.0006.008.1701-.0285.4942.1759zm16.2257.5918c-.1366.7526-2.5579 2.5764-2.3224 2.9709.044.074.1092.1055.1855.1055.3321 0 .881-.5684.881-.5684s2.0336-1.8397 2.8947-1.84c.1121 0 .2044.0308.2695.1016.5662.6125-.447 1.0882-1.8653 1.9415-1.4183.853-1.51 1.1168-1.3087 1.4396.012.0188.0337.0273.0644.0273.4016 0 2.3181-1.4923 3.1721-1.4923.1977-.0002.3388.0787.3907.2754.294 1.112-3.2095 1.3597-2.9846 2.1642.0325.1166.1156.2032.2285.2032.5054 0 1.682-.9552 2.3283-.9552.16 0 .2862.0577.3633.2032.459.8656-3.1623 1.8149-3.1916 1.8224-.5958.1535-1.6605.336-2.6975.336-.6351 0-1.261-.0409-1.7638-.2599-.2949-.1472-.5488-.3516-.7383-.625-.0411-.0682-.1026-.1476-.1426-.205-.5726-.9679-.455-1.7371.4903-2.676 1.0254-1.0182 1.6212-2.508 1.6212-2.508s.2044-.7891.666-.7891a.4318.4318 0 0 1 .0665.0039c.5078.0796.88 1.3732-.1836 2.1642-.7074.5257-.3797.9395.039.9395.211 0 .445-.1047.5821-.3535.4092-.7426 1.5264-2.6527 2.1056-3.0178.5588-.3524.99-.1816.8497.5918z"/></svg>
+
+            <div class="lab-layer-meta">
+                <span class="lab-layer-tag">L4 · INTERFACE</span>
+                <span class="lab-layer-note">what I actually touch</span>
             </div>
 
-            <h3>
-                WSL2 / Linux
-            </h3>
-
-            <p>
-                Windows 11 as the host, Ubuntu 24.04 through WSL2,
-                and a Linux environment for experimenting with
-                modern AI tooling.
-            </p>
-
-            <div class="lab-tags">
-
-                <span>WINDOWS 11</span>
-                <span>WSL2</span>
-                <span>UBUNTU 24.04</span>
-
-            </div>
-
-        </div>
-
-
-        <!-- DOCKER -->
-
-        <div class="lab-card">
-
-            <div class="lab-number">
-                03
-            </div>
-
-            <h3>
-                Docker
-            </h3>
-
-            <p>
-                Containerising AI workloads and learning how the
-                pieces fit together — images, volumes, networking,
-                GPU access and services.
-            </p>
-
-            <div class="lab-tags">
-
-                <span>DOCKER</span>
-                <span>CONTAINERS</span>
-                <span>GPU RUNTIME</span>
-
-            </div>
-
-        </div>
-
-
-        <!-- VLLM -->
-
-        <div class="lab-card">
-
-            <div class="lab-number">
-                04
-            </div>
-
-            <h3>
-                vLLM
-            </h3>
-
-            <p>
-                Exploring local LLM inference and what happens
-                underneath the API: GPU memory, KV cache,
-                quantization, batching and serving.
-            </p>
-
-            <div class="lab-tags">
-
-                <span>vLLM</span>
-                <span>LLM INFERENCE</span>
-                <span>KV CACHE</span>
-
-            </div>
-
-        </div>
-
-
-        <!-- OPEN WEBUI -->
-
-        <div class="lab-card">
-
-            <div class="lab-number">
-                05
-            </div>
-
-            <h3>
-                Open WebUI
-            </h3>
-
-            <p>
-                A practical browser interface over the local
-                inference stack — making the workstation usable
-                as a private AI environment.
-            </p>
-
-            <div class="lab-tags">
-
-                <span>OPEN WEBUI</span>
-                <span>LOCAL AI</span>
-                <span>API</span>
-
-            </div>
-
-        </div>
-
-
-        <!-- SDXL -->
-
-        <div class="lab-card">
-
-            <div class="lab-number">
-                06
-            </div>
-
-            <h3>
-                SDXL / Image Generation
-            </h3>
-
-            <p>
-                Experimenting with local generative image
-                workflows, model behaviour, GPU memory constraints
-                and inference parameters.
-            </p>
-
-            <div class="lab-tags">
-
-                <span>SDXL</span>
-                <span>STABLE DIFFUSION</span>
-                <span>CUDA</span>
-
-            </div>
-
-        </div>
-
-
-        <!-- ARCHITECTURE -->
-
-        <div class="lab-card lab-wide">
-
-            <div>
-
-                <div class="lab-number">
-                    07
-                </div>
-
-                <h3>
-                    AI + Infrastructure
-                </h3>
-
+            <div class="lab-layer-main">
+                <h3>Inference &amp; Apps</h3>
                 <p>
-                    This is where the old career becomes useful again.
-                    Servers, networking, containers, resource allocation,
-                    troubleshooting and deployment are not separate from
-                    AI engineering. They're part of it.
+                    Local LLM serving, a private chat interface and
+                    generative image workflows. The workstation as a
+                    real, usable AI environment.
                 </p>
-
-            </div>
-
-
-            <div class="lab-architecture">
-
-                <span>RTX 4070</span>
-
-                <b>→</b>
-
-                <span>CUDA</span>
-
-                <b>→</b>
-
-                <span>Docker</span>
-
-                <b>→</b>
-
-                <span>vLLM</span>
-
-                <b>→</b>
-
-                <span>Open WebUI</span>
-
+                <div class="lab-metric">
+                    <strong>~125 tok/s</strong> · Mistral-7B (Q4), measured on the RTX 4070
+                </div>
+                <div class="lab-chips">
+                    <span>vLLM</span>
+                    <span>Open WebUI</span>
+                    <span>SDXL</span>
+                </div>
             </div>
 
         </div>
 
 
-        <!-- EXPERIMENT -->
+        <!-- L3 · RUNTIME -->
 
-        <div class="lab-card lab-experiment">
+        <div class="lab-layer" style="--i:2">
 
-            <div class="lab-status">
+            <svg class="lab-watermark" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></svg>
 
-                <span class="status-dot"></span>
-
-                EXPERIMENT LOG
-
+            <div class="lab-layer-meta">
+                <span class="lab-layer-tag">L3 · RUNTIME</span>
+                <span class="lab-layer-note">how it's packaged</span>
             </div>
 
-
-            <h3>
-                Build → Break → Understand
-            </h3>
-
-
-            <p>
-                The objective isn't simply to make something work.
-                It's to understand why it works, what breaks,
-                and what the system is doing underneath.
-            </p>
+            <div class="lab-layer-main">
+                <h3>Containers &amp; CUDA</h3>
+                <p>
+                    Containerised GPU workloads (images, volumes,
+                    networking, GPU passthrough) sitting on the
+                    CUDA runtime that talks to the card.
+                </p>
+                <div class="lab-chips">
+                    <span>Docker</span>
+                    <span>NVIDIA Container Runtime</span>
+                    <span>CUDA</span>
+                </div>
+            </div>
 
         </div>
 
+
+        <!-- L2 · HOST / OS -->
+
+        <div class="lab-layer" style="--i:3">
+
+            <svg class="lab-watermark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8.5v8.5H3zM12.5 3H21v8.5h-8.5zM3 12.5h8.5V21H3zM12.5 12.5H21V21h-8.5z"/></svg>
+
+            <div class="lab-layer-meta">
+                <span class="lab-layer-tag">L2 · HOST / OS</span>
+                <span class="lab-layer-note">where it lives</span>
+            </div>
+
+            <div class="lab-layer-main">
+                <h3>Windows 11 + WSL2</h3>
+                <p>
+                    Windows 11 as the host, Ubuntu 24.04 through WSL2.
+                    A real Linux environment for modern AI tooling,
+                    without leaving the desktop.
+                </p>
+                <div class="lab-chips">
+                    <span>Windows 11</span>
+                    <span>WSL2</span>
+                    <span>Ubuntu 24.04</span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- L1 · HARDWARE (the metal) -->
+
+        <div class="lab-layer" style="--i:4">
+
+            <svg class="lab-watermark" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.948 8.798v-1.43a6.7 6.7 0 0 1 .424-.018c3.922-.124 6.493 3.374 6.493 3.374s-2.774 3.851-5.75 3.851c-.398 0-.787-.062-1.158-.185v-4.346c1.528.185 1.837.857 2.747 2.385l2.04-1.714s-1.492-1.952-4-1.952a6.016 6.016 0 0 0-.796.035m0-4.735v2.138l.424-.027c5.45-.185 9.01 4.47 9.01 4.47s-4.08 4.964-8.33 4.964c-.37 0-.733-.035-1.095-.097v1.325c.3.035.61.062.91.062 3.957 0 6.82-2.023 9.593-4.408.459.371 2.34 1.263 2.73 1.652-2.633 2.208-8.772 3.984-12.253 3.984-.335 0-.653-.018-.971-.053v1.864H24V4.063zm0 10.326v1.131c-3.657-.654-4.673-4.46-4.673-4.46s1.758-1.944 4.673-2.262v1.237H8.94c-1.528-.186-2.73 1.245-2.73 1.245s.68 2.412 2.739 3.11M2.456 10.9s2.164-3.197 6.5-3.533V6.201C4.153 6.59 0 10.653 0 10.653s2.35 6.802 8.948 7.42v-1.237c-4.84-.6-6.492-5.936-6.492-5.936z"/></svg>
+
+            <div class="lab-layer-meta">
+                <span class="lab-layer-tag">L1 · HARDWARE</span>
+                <span class="lab-layer-note">the metal</span>
+            </div>
+
+            <div class="lab-layer-main">
+                <h3>NVIDIA RTX 4070 · 12&nbsp;GB</h3>
+                <p>
+                    The foundation everything else runs on. Real GPU
+                    memory and real limits to work within, which is
+                    where a lot of the actual learning happens.
+                </p>
+                <div class="lab-chips">
+                    <span>RTX 4070</span>
+                    <span>12 GB VRAM</span>
+                    <span>CUDA cores</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTNOTE — the systems-thinking payoff -->
+
+    <div class="lab-footnote">
+
+        <div class="lab-status lab-cycle">
+            <span class="cycle-word" style="animation-delay:0s">BUILD</span>
+            <b>→</b>
+            <span class="cycle-word" style="animation-delay:.9s">BREAK</span>
+            <b>→</b>
+            <span class="cycle-word" style="animation-delay:1.8s">UNDERSTAND</span>
+        </div>
+
+        <p>
+            This is where the old career keeps paying off. Servers, networking,
+            containers, resource allocation and troubleshooting were never
+            separate from AI engineering. They're the same muscles. The goal
+            isn't just to make it run. It's to understand <em>why</em> it runs,
+            what breaks, and what the system is doing underneath.
+        </p>
 
     </div>
 
@@ -2820,10 +3830,14 @@ footer strong {
     <div class="credentials-grid">
 
 
-        <div class="credential">
+        <a href="https://learn.microsoft.com/en-us/users/nabarunchakraborty-9730/credentials/6f13810ce82a9254"
+           target="_blank" rel="noopener noreferrer" class="credential">
 
-            <div class="credential-issuer">
-                MICROSOFT
+            <div class="credential-top">
+                <span class="credential-issuer">MICROSOFT</span>
+                <svg class="credential-seal" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M11.4 11.4H2V2h9.4v9.4zM22 11.4h-9.4V2H22v9.4zM11.4 22H2v-9.4h9.4V22zM22 22h-9.4v-9.4H22V22z"/>
+                </svg>
             </div>
 
             <h3>
@@ -2834,13 +3848,19 @@ footer strong {
                 Microsoft Certified
             </p>
 
-        </div>
+            <span class="credential-verify">Verify ↗</span>
+
+        </a>
 
 
-        <div class="credential">
+        <a href="https://learn.microsoft.com/en-us/users/nabarunchakraborty-9730/credentials/b1769a193be0a19"
+           target="_blank" rel="noopener noreferrer" class="credential">
 
-            <div class="credential-issuer">
-                MICROSOFT
+            <div class="credential-top">
+                <span class="credential-issuer">MICROSOFT</span>
+                <svg class="credential-seal" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M11.4 11.4H2V2h9.4v9.4zM22 11.4h-9.4V2H22v9.4zM11.4 22H2v-9.4h9.4V22zM22 22h-9.4v-9.4H22V22z"/>
+                </svg>
             </div>
 
             <h3>
@@ -2851,13 +3871,19 @@ footer strong {
                 Microsoft Certified
             </p>
 
-        </div>
+            <span class="credential-verify">Verify ↗</span>
+
+        </a>
 
 
-        <div class="credential">
+        <a href="https://www.credly.com/badges/b89bd45c-1260-4b2d-bd9e-f039690a59ee"
+           target="_blank" rel="noopener noreferrer" class="credential">
 
-            <div class="credential-issuer">
-                GOOGLE CLOUD
+            <div class="credential-top">
+                <span class="credential-issuer">GOOGLE CLOUD</span>
+                <svg class="credential-seal" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-2.821-4.552l-.043.043.006-.05A9.344 9.344 0 0 0 12.19 2.38zm-.358 4.146c1.244-.04 2.518.368 3.486 1.15a5.186 5.186 0 0 1 1.862 4.078v.518c3.53-.07 3.53 5.262 0 5.193h-5.193l-.008.009v-.04H6.785a2.59 2.59 0 0 1-1.067-.23h.001a2.597 2.597 0 1 1 3.437-3.437l3.013-3.012A6.747 6.747 0 0 0 8.11 8.24c.018-.01.04-.026.054-.023a5.186 5.186 0 0 1 3.67-1.69z"/>
+                </svg>
             </div>
 
             <h3>
@@ -2868,119 +3894,10 @@ footer strong {
                 Google Cloud Certification
             </p>
 
-        </div>
+            <span class="credential-verify">Verify ↗</span>
 
+        </a>
 
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     PIPELINE
-===================================================== -->
-
-<section class="section pipeline-section reveal">
-
-    <div class="section-label">
-        07 / THE CONNECTION
-    </div>
-
-
-    <h2 class="section-title">
-        Infrastructure was never wasted experience.
-    </h2>
-
-
-    <p class="section-intro" style="margin:auto;">
-        The technologies changed.
-        The systems thinking didn't.
-    </p>
-
-
-    <div class="pipeline">
-
-
-        <div class="pipeline-node">
-
-            <small>01</small>
-
-            SYSTEMS
-
-        </div>
-
-
-        <div class="pipeline-arrow">
-            →
-        </div>
-
-
-        <div class="pipeline-node">
-
-            <small>02</small>
-
-            CLOUD
-
-        </div>
-
-
-        <div class="pipeline-arrow">
-            →
-        </div>
-
-
-        <div class="pipeline-node">
-
-            <small>03</small>
-
-            AI / ML
-
-        </div>
-
-
-        <div class="pipeline-arrow">
-            →
-        </div>
-
-
-        <div class="pipeline-node">
-
-            <small>04</small>
-
-            LLMs
-
-        </div>
-
-
-        <div class="pipeline-arrow">
-            →
-        </div>
-
-
-        <div class="pipeline-node">
-
-            <small>05</small>
-
-            AI ENGINEERING
-
-        </div>
-
-
-        <div class="pipeline-arrow">
-            →
-        </div>
-
-
-        <div class="pipeline-node">
-
-            <small>06</small>
-
-            MLOps
-
-        </div>
-
-
-        <div class="pipeline-pulse"></div>
 
     </div>
 
@@ -2994,20 +3911,25 @@ footer strong {
 <section class="philosophy reveal">
 
     <div class="quote-mark">
-        "
+        &ldquo;
     </div>
 
 
     <blockquote>
-        I'm doing it in the open —
-        mistakes included.
+        I'm learning in public.
+        Mistakes included.
     </blockquote>
+
+
+    <div class="quote-mark quote-mark-close">
+        &rdquo;
+    </div>
 
 
     <p>
         Starting late doesn't mean starting from zero.
-        Sometimes the experience you already have becomes
-        the most interesting part of where you're going.
+        Sometimes the years behind you turn out to be
+        the most interesting part of what's ahead.
     </p>
 
 </section>
@@ -3020,7 +3942,7 @@ footer strong {
 <section id="writing" class="section reveal">
 
     <div class="section-label">
-        08 / THE THINKING SIDE
+        07 / THE THINKING SIDE
     </div>
 
 
@@ -3058,7 +3980,7 @@ footer strong {
 
                 <p>
                     The human side of starting over.
-                    It's not too late — just a different clock.
+                    It's not too late. Just a different clock.
                 </p>
 
                 <span>
@@ -3115,7 +4037,7 @@ footer strong {
 <section id="connect" class="connect reveal">
 
     <div class="section-label">
-        09 / FIND ME
+        08 / FIND ME
     </div>
 
 
@@ -3131,6 +4053,13 @@ footer strong {
 
 
     <div class="socials">
+
+
+        <a href="mailto:hinabarun@gmail.com">
+
+            Email ↗
+
+        </a>
 
 
         <a
@@ -3168,6 +4097,9 @@ footer strong {
 </section>
 
 
+</main>
+
+
 <!-- =====================================================
      FOOTER
 ===================================================== -->
@@ -3180,8 +4112,8 @@ footer strong {
 
 
     <div>
-        Built with HTML, CSS & JavaScript ·
-        Hosted on GitHub Pages
+        © 2026 Nabarun · Built with HTML, CSS &amp; JavaScript ·
+        Hosted on GitHub Pages<span id="lastUpdated"></span>
     </div>
 
 </footer>
@@ -3268,6 +4200,35 @@ async function runTerminalSession() {
         document.getElementById("terminal-command");
 
 
+    const whoamiLine =
+        whoami.closest(".terminal-command-line");
+
+
+    const commandLines = [
+        whoamiLine,
+        careerLine,
+        nvidiaLine,
+        dockerLine,
+        finalLine
+    ];
+
+
+    /* only one line owns the blinking cursor at a time */
+    const setActive = line => {
+
+        commandLines.forEach(entry => {
+            if (entry) {
+                entry.classList.remove("active-line");
+            }
+        });
+
+        if (line) {
+            line.classList.add("active-line");
+        }
+
+    };
+
+
     while (true) {
 
 
@@ -3302,6 +4263,9 @@ async function runTerminalSession() {
            WHOAMI
         ------------------------------------------------- */
 
+        setActive(whoamiLine);
+
+
         await typeText(
             whoami,
             "whoami",
@@ -3323,6 +4287,8 @@ async function runTerminalSession() {
         ------------------------------------------------- */
 
         show(careerLine);
+
+        setActive(careerLine);
 
 
         await typeText(
@@ -3347,6 +4313,8 @@ async function runTerminalSession() {
 
         show(nvidiaLine);
 
+        setActive(nvidiaLine);
+
 
         await typeText(
             nvidia,
@@ -3370,6 +4338,8 @@ async function runTerminalSession() {
 
         show(dockerLine);
 
+        setActive(dockerLine);
+
 
         await typeText(
             docker,
@@ -3392,6 +4362,8 @@ async function runTerminalSession() {
         ------------------------------------------------- */
 
         show(finalLine);
+
+        setActive(finalLine);
 
 
         const commands = [
@@ -3539,6 +4511,277 @@ if (terminalWindow) {
         }
     );
 
+}
+
+
+/* =========================================================
+   SCROLL PROGRESS + NAV SCROLL-SPY
+========================================================= */
+
+const progressBar =
+    document.getElementById("scrollProgress");
+
+const navBar =
+    document.querySelector("nav");
+
+const spySections =
+    [...document.querySelectorAll("section[id]")];
+
+const navLinkMap =
+    new Map(
+        [...document.querySelectorAll(".nav-links a")]
+            .map(a => [
+                a.getAttribute("href").slice(1),
+                a
+            ])
+    );
+
+
+function onScroll() {
+
+    const top = window.scrollY;
+
+    const max =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    if (progressBar) {
+        progressBar.style.width =
+            (max > 0 ? (top / max) * 100 : 0) + "%";
+    }
+
+    if (navBar) {
+        navBar.classList.toggle("scrolled", top > 40);
+    }
+
+    let current = null;
+
+    for (const section of spySections) {
+        if (section.getBoundingClientRect().top <= 140) {
+            current = section.id;
+        }
+    }
+
+    navLinkMap.forEach((link, id) => {
+        link.classList.toggle("active", id === current);
+    });
+
+}
+
+
+window.addEventListener("scroll", onScroll, { passive: true });
+
+onScroll();
+
+
+/* =========================================================
+   LOGO — accent confetti burst + scroll to top
+========================================================= */
+
+const reducedMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+function burstConfetti(originX, originY) {
+
+    if (reducedMotion) {
+        return;
+    }
+
+    /* nothing to draw on a zero-size / hidden viewport */
+    if (!window.innerWidth || !window.innerHeight) {
+        return;
+    }
+
+    const canvas = document.createElement("canvas");
+
+    canvas.style.cssText =
+        "position:fixed;inset:0;pointer-events:none;z-index:9999";
+
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = window.innerWidth * ratio;
+    canvas.height = window.innerHeight * ratio;
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(ratio, ratio);
+
+    const colors = ["#6cff9b", "#55e7ff", "#e8edf5"];
+
+    const pieces = [];
+
+    for (let i = 0; i < 130; i++) {
+
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 4 + Math.random() * 7;
+
+        pieces.push({
+            x: originX,
+            y: originY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 4,
+            g: 0.16 + Math.random() * 0.14,
+            w: 2 + Math.random() * 2,
+            h: 3 + Math.random() * 3.5,
+            rot: Math.random() * Math.PI,
+            vr: (Math.random() - 0.5) * 0.4,
+            color: colors[i % colors.length],
+            life: 0,
+            ttl: 55 + Math.random() * 35
+        });
+
+    }
+
+    let frame = 0;
+
+    (function tick() {
+
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+        let alive = false;
+
+        for (const p of pieces) {
+
+            if (p.life > p.ttl) {
+                continue;
+            }
+
+            alive = true;
+
+            p.life++;
+            p.vy += p.g;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vx *= 0.99;
+            p.rot += p.vr;
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            ctx.globalAlpha = Math.max(0, 1 - p.life / p.ttl);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+
+        }
+
+        frame++;
+
+        if (alive && frame < 200) {
+            requestAnimationFrame(tick);
+        } else {
+            canvas.remove();
+        }
+
+    })();
+
+}
+
+
+const logo = document.getElementById("logo");
+
+if (logo) {
+
+    logo.addEventListener("click", event => {
+
+        event.preventDefault();
+
+        const rect = logo.getBoundingClientRect();
+
+        burstConfetti(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2
+        );
+
+        window.scrollTo({
+            top: 0,
+            behavior: reducedMotion ? "auto" : "smooth"
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   MOBILE NAV TOGGLE
+========================================================= */
+
+const navToggle = document.getElementById("navToggle");
+const navLinks = document.querySelector(".nav-links");
+
+if (navToggle && navLinks) {
+
+    navToggle.addEventListener("click", () => {
+
+        const open = navLinks.classList.toggle("open");
+
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.setAttribute("aria-label", "Open menu");
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   CURSOR-FOLLOW GLOW
+========================================================= */
+
+const glowOrb =
+    document.querySelector(".glow");
+
+
+if (
+    glowOrb &&
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+) {
+
+    window.addEventListener(
+        "mousemove",
+        event => {
+
+            glowOrb.style.transform =
+                `translate3d(${event.clientX}px, ${event.clientY}px, 0)` +
+                ` translate(-50%, -50%)`;
+
+        },
+        { passive: true }
+    );
+
+}
+
+
+/* =========================================================
+   FOOTER — auto "last updated" from the file's modified date
+========================================================= */
+
+const updatedEl = document.getElementById("lastUpdated");
+
+if (updatedEl) {
+    try {
+        const d = new Date(document.lastModified);
+        if (!isNaN(d.getTime())) {
+            updatedEl.textContent =
+                " · Updated " +
+                d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+        }
+    } catch (e) {}
 }
 
 </script>
