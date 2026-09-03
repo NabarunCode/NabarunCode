@@ -2099,20 +2099,55 @@ body {
 
 /* --- scroll progress bar --- */
 
-/* progress bar sits at the nav's bottom edge — also separates nav from page */
+/* progress = a live shell prompt showing where you are, plus a hairline fill */
 .scroll-progress {
     position: absolute;
     top: 100%;
     left: 0;
+    right: 0;
+    height: 20px;
 
+    pointer-events: none;
+}
+
+.sp-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 2px;
     width: 0;
 
     background: var(--accent-grad);
+    box-shadow: 0 0 10px rgba(108,255,155,.5);
 
-    box-shadow: 0 0 12px rgba(108,255,155,.55);
+    transition: width .12s linear;
+}
 
-    transition: width .08s linear;
+.sp-loc {
+    position: absolute;
+    top: 6px;
+    left: 7%;
+
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .06em;
+
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.sp-tilde { color: var(--green); }
+#spSection { color: var(--text); }
+
+.sp-caret {
+    margin-left: 2px;
+    color: var(--green);
+    animation: spCaret 1s steps(1) infinite;
+}
+
+@keyframes spCaret {
+    0%, 50%      { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
 }
 
 
@@ -2475,13 +2510,13 @@ nav.scrolled {
 
     opacity: 0;
 
-    animation: deckGlow 4.5s linear infinite;
-    animation-delay: calc(var(--i, 1) * 1.125s - 0.83s);
+    transition: opacity .25s ease;
 }
 
-@keyframes deckGlow {
-    0%, 13%, 100% { opacity: 0; }
-    6%            { opacity: 1; }
+/* deck lights when the pulse is actually over it (set by JS), or on hover */
+.lab-layer.lit::after,
+.lab-layer:hover::after {
+    opacity: 1;
 }
 
 /* faint tech watermark per deck — texture, not a sticker */
@@ -2510,9 +2545,11 @@ nav.scrolled {
     transition: opacity .35s ease, fill .35s ease;
 }
 
+/* watermark greens when its deck is lit by the pulse, or on hover */
+.lab-layer.lit .lab-watermark,
 .lab-layer:hover .lab-watermark {
-    opacity: .1;
     fill: var(--green);
+    opacity: .12;
 }
 
 @media (max-width: 760px) {
@@ -2521,12 +2558,10 @@ nav.scrolled {
 
 .lab-layer:hover {
     transform: translateX(5px);
-    border-color: rgba(108,255,155,.4);
 
-    box-shadow:
-        0 18px 50px rgba(0,0,0,.4),
-        0 0 40px -16px rgba(108,255,155,.4);
+    box-shadow: 0 18px 50px rgba(0,0,0,.4);
 }
+
 
 .lab-layer-meta {
     display: flex;
@@ -2732,32 +2767,6 @@ nav.scrolled {
     font-weight: 600;
 }
 
-.hero-now {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-top: 26px;
-    padding: 9px 15px;
-
-    max-width: 100%;
-
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: rgba(11,15,22,.5);
-
-    font-family: var(--mono);
-    font-size: 11px;
-    line-height: 1.5;
-    color: var(--muted);
-
-    animation: heroIn .85s ease both .7s;
-}
-
-.hero-now b { color: var(--green); font-weight: 600; }
-
-.hero-now .status-dot { flex-shrink: 0; }
-
 .scroll-cue {
     position: absolute;
     bottom: 26px;
@@ -2836,11 +2845,13 @@ nav.scrolled {
 
         <a href="#journey">Journey</a>
 
-        <a href="#work">Work</a>
-
         <a href="#learning">Learning</a>
 
+        <a href="#work">Work</a>
+
         <a href="#lab">Lab</a>
+
+        <a href="#credentials">Credentials</a>
 
         <a href="#writing">Writing</a>
 
@@ -2855,7 +2866,12 @@ nav.scrolled {
         <span></span>
     </button>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="scroll-progress" id="scrollProgress">
+        <div class="sp-fill" id="spFill"></div>
+        <div class="sp-loc">
+            <span class="sp-tilde">~/</span><span id="spSection">home</span><span class="sp-caret">▊</span>
+        </div>
+    </div>
 
 </nav>
 
@@ -2914,12 +2930,6 @@ nav.scrolled {
 
         </a>
 
-    </div>
-
-
-    <div class="hero-now">
-        <span class="status-dot"></span>
-        <span><b>Right now</b> · reproducing an ICML 2026 tokenization paper and benchmarking local inference on the 4070</span>
     </div>
 
   </div><!-- /.hero-content -->
@@ -3481,15 +3491,14 @@ nav.scrolled {
 
 
     <h2 class="section-title">
-        Learning by building.
+        Proof of work.
     </h2>
 
 
     <p class="section-intro">
-        The proof-of-work side of the journey.
-        Experiments, implementations and projects
-        that force me to understand rather than
-        simply consume.
+        Experiments and implementations that push me
+        to actually understand something, not just
+        consume it.
     </p>
 
 
@@ -3499,7 +3508,7 @@ nav.scrolled {
         <div>
 
             <div class="project-kicker">
-                ICML 2026 · RESEARCH REPRODUCTION
+                RESEARCH REPRODUCTION
             </div>
 
 
@@ -3815,7 +3824,7 @@ nav.scrolled {
      CREDENTIALS
 ===================================================== -->
 
-<section class="section credentials reveal">
+<section id="credentials" class="section credentials reveal">
 
     <div class="section-label">
         06 / CREDENTIALS
@@ -3823,7 +3832,7 @@ nav.scrolled {
 
 
     <h2 class="section-title">
-        Learning, with receipts.
+        Receipts you can check.
     </h2>
 
 
@@ -4537,33 +4546,45 @@ const navLinkMap =
     );
 
 
+const spSectionEl = document.getElementById("spSection");
+const spFill = document.getElementById("spFill");
+
+
 function onScroll() {
 
     const top = window.scrollY;
-
-    const max =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
-
-    if (progressBar) {
-        progressBar.style.width =
-            (max > 0 ? (top / max) * 100 : 0) + "%";
-    }
 
     if (navBar) {
         navBar.classList.toggle("scrolled", top > 40);
     }
 
-    let current = null;
+    const max =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
 
-    for (const section of spySections) {
-        if (section.getBoundingClientRect().top <= 140) {
-            current = section.id;
-        }
+    if (spFill) {
+        spFill.style.width =
+            (max > 0 ? (top / max) * 100 : 0) + "%";
     }
 
-    navLinkMap.forEach((link, id) => {
-        link.classList.toggle("active", id === current);
+    let currentIndex = -1;
+
+    spySections.forEach((section, i) => {
+        if (section.getBoundingClientRect().top <= 140) {
+            currentIndex = i;
+        }
+    });
+
+    if (spSectionEl) {
+        spSectionEl.textContent =
+            currentIndex >= 0 ? spySections[currentIndex].id : "home";
+    }
+
+    spySections.forEach((section, i) => {
+        const link = navLinkMap.get(section.id);
+        if (link) {
+            link.classList.toggle("active", i === currentIndex);
+        }
     });
 
 }
@@ -4763,6 +4784,55 @@ if (
         },
         { passive: true }
     );
+
+}
+
+
+/* =========================================================
+   DECK GLOW — light whichever deck the pulse is actually over
+   (measured position, so it can never desync from the pulse)
+========================================================= */
+
+const labStackEl = document.querySelector(".lab-stack");
+const labPulseEl = document.querySelector(".lab-pulse");
+const labLayerEls = [...document.querySelectorAll(".lab-layer")];
+
+if (labStackEl && labPulseEl && labLayerEls.length && !reducedMotion) {
+
+    let labInView = false;
+
+    const labObserver = new IntersectionObserver(entries => {
+        labInView = entries[0].isIntersecting;
+        if (labInView) requestAnimationFrame(trackPulse);
+    }, { threshold: 0 });
+
+    labObserver.observe(labStackEl);
+
+    function trackPulse() {
+
+        const pr = labPulseEl.getBoundingClientRect();
+        const pulseCentre = pr.top + pr.height / 2;
+        const pulseVisible =
+            parseFloat(getComputedStyle(labPulseEl).opacity) > 0.25;
+
+        let lit = null;
+
+        if (pulseVisible) {
+            for (const layer of labLayerEls) {
+                const r = layer.getBoundingClientRect();
+                if (pulseCentre >= r.top && pulseCentre <= r.bottom) {
+                    lit = layer;
+                    break;
+                }
+            }
+        }
+
+        labLayerEls.forEach(layer => layer.classList.toggle("lit", layer === lit));
+
+        if (labInView) {
+            requestAnimationFrame(trackPulse);
+        }
+    }
 
 }
 
