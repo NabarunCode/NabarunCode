@@ -1859,6 +1859,69 @@ nav {
     font-size: 10px;
 }
 
+.writing-post.is-extra {
+    display: none;
+}
+
+.writing-card.expanded .writing-post.is-extra {
+    display: flex;
+}
+
+.writing-morebtn {
+    display: inline-block;
+
+    margin: 0 0 14px;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .04em;
+
+    cursor: pointer;
+
+    transition: color .2s ease;
+}
+
+.writing-morebtn:hover {
+    color: var(--green);
+}
+
+.writing-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.writing-sub {
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    border: 1px solid var(--green);
+    border-radius: 5px;
+
+    color: var(--green);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .04em;
+
+    transition: background .25s ease, color .25s ease;
+}
+
+.writing-sub:hover {
+    background: var(--green);
+    color: #071009;
+}
+
+:root[data-theme="light"] .writing-sub:hover {
+    color: #ffffff;
+}
+
 
 /* =========================================================
    CONNECT
@@ -4185,23 +4248,38 @@ nav.scrolled {
                 </p>
 
                 <div class="writing-posts">
-                    <a class="writing-post" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
+                    <a class="writing-post" href="https://nabarunwrites.substack.com/p/nobody-teaches-ai-the-rules" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">Nobody Teaches AI the Rules</span>
                         <span class="wp-date">Jul 14</span>
                     </a>
-                    <a class="writing-post" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
+                    <a class="writing-post" href="https://nabarunwrites.substack.com/p/how-chatgpt-learnt-my-style-core" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">How ChatGPT Learnt My Style · CORE-IQ Part 2</span>
                         <span class="wp-date">Jun 30</span>
                     </a>
-                    <a class="writing-post" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
+                    <a class="writing-post" href="https://nabarunwrites.substack.com/p/what-happens-when-you-ask-chatgpt" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">What happens when you ask ChatGPT a question?</span>
                         <span class="wp-date">Jun 16</span>
                     </a>
+                    <a class="writing-post is-extra" href="https://nabarunwrites.substack.com/p/what-even-is-machine-learning" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">What even is Machine Learning?</span>
+                        <span class="wp-date">Jun 2</span>
+                    </a>
+                    <a class="writing-post is-extra" href="https://nabarunwrites.substack.com/p/wrong-map-right-goal" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">Wrong Map, Right Goal</span>
+                        <span class="wp-date">May 12</span>
+                    </a>
+                    <a class="writing-post is-extra" href="https://nabarunwrites.substack.com/p/the-week-ai-stopped-working" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">The Week AI Stopped Working</span>
+                        <span class="wp-date">Apr 28</span>
+                    </a>
                 </div>
 
-                <a class="writing-more" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
-                    READ THE NEWSLETTER →
-                </a>
+                <button type="button" class="writing-morebtn">Show 3 more ↓</button>
+
+                <div class="writing-actions">
+                    <a class="writing-sub" href="https://nabarunwrites.substack.com/subscribe" target="_blank" rel="noopener noreferrer">SUBSCRIBE ↗</a>
+                    <a class="writing-more" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">READ THE NEWSLETTER →</a>
+                </div>
 
             </div>
 
@@ -4227,23 +4305,38 @@ nav.scrolled {
                 </p>
 
                 <div class="writing-posts">
-                    <a class="writing-post" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
+                    <a class="writing-post" href="https://winninglate.substack.com/p/two-likes-and-thirty-views" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">Two Likes and Thirty Views</span>
                         <span class="wp-date">Jul 28</span>
                     </a>
-                    <a class="writing-post" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
+                    <a class="writing-post" href="https://winninglate.substack.com/p/i-fixed-my-waist-before-my-resume" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">I Fixed My Waist Before My Resume</span>
                         <span class="wp-date">Jul 7</span>
                     </a>
-                    <a class="writing-post" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
+                    <a class="writing-post" href="https://winninglate.substack.com/p/the-grass-remembered" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">The Grass Remembered</span>
                         <span class="wp-date">Jun 23</span>
                     </a>
+                    <a class="writing-post is-extra" href="https://winninglate.substack.com/p/why-nothing-felt-good-anymore" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">Why Nothing Felt Good Anymore</span>
+                        <span class="wp-date">Jun 9</span>
+                    </a>
+                    <a class="writing-post is-extra" href="https://winninglate.substack.com/p/the-first-weekday-with-nowhere-to" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">The First Weekday With Nowhere to Go</span>
+                        <span class="wp-date">May 26</span>
+                    </a>
+                    <a class="writing-post is-extra" href="https://winninglate.substack.com/p/what-winning-late-actually-means" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">What "Winning Late" Actually Means to Me</span>
+                        <span class="wp-date">May 5</span>
+                    </a>
                 </div>
 
-                <a class="writing-more" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
-                    READ THE NEWSLETTER →
-                </a>
+                <button type="button" class="writing-morebtn">Show 3 more ↓</button>
+
+                <div class="writing-actions">
+                    <a class="writing-sub" href="https://winninglate.substack.com/subscribe" target="_blank" rel="noopener noreferrer">SUBSCRIBE ↗</a>
+                    <a class="writing-more" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">READ THE NEWSLETTER →</a>
+                </div>
 
             </div>
 
@@ -5105,6 +5198,19 @@ if (themeToggle) {
 
     });
 }
+
+
+/* =========================================================
+   WRITING — show more / fewer posts
+========================================================= */
+
+document.querySelectorAll(".writing-morebtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const card = btn.closest(".writing-card");
+        const expanded = card.classList.toggle("expanded");
+        btn.textContent = expanded ? "Show fewer ↑" : "Show 3 more ↓";
+    });
+});
 
 </script>
 
