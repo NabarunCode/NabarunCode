@@ -176,6 +176,13 @@ a {
     color: var(--text);
 }
 
+/* the deck glow needs a solid edge + a green wash to read on a light card */
+:root[data-theme="light"] .lab-layer::after {
+    border-color: rgba(11,124,66,.7);
+    box-shadow: 0 0 32px -6px rgba(11,124,66,.4);
+    background: rgba(11,124,66,.07);
+}
+
 
 /* =========================================================
    BACKGROUND
@@ -2212,7 +2219,7 @@ body {
 .scroll-progress {
     position: relative;
 
-    height: 52px;
+    height: 48px;
 
     border-top: 1px solid var(--hair);
 
@@ -2221,7 +2228,7 @@ body {
 
 .sp-fill {
     position: absolute;
-    top: 28px;
+    top: 40px;
     left: 0;
     height: 2px;
     width: 0;
@@ -2935,15 +2942,10 @@ nav.scrolled {
 </style>
 
 <script>
-/* set theme before first paint (no flash): saved choice, else system */
+/* set theme before first paint (no flash): dark by default, light only if chosen */
 (function () {
     try {
-        var t = localStorage.getItem("nabarun-theme");
-        if (!t) {
-            t = window.matchMedia("(prefers-color-scheme: light)").matches
-                ? "light" : "dark";
-        }
-        if (t === "light") {
+        if (localStorage.getItem("nabarun-theme") === "light") {
             document.documentElement.setAttribute("data-theme", "light");
         }
     } catch (e) {}
