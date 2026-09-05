@@ -1801,11 +1801,61 @@ nav {
     margin-bottom: 18px;
 }
 
-.writing-card span {
+.writing-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.writing-card h3 a {
+    transition: color .25s ease;
+}
+
+.writing-card:hover h3 a,
+.writing-card h3 a:hover {
     color: var(--green);
+}
+
+.writing-posts {
+    margin: 0 0 16px;
+    border-top: 1px solid var(--line);
+}
+
+.writing-post {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+
+    padding: 9px 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.wp-title {
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--text-soft);
+
+    transition: color .2s ease;
+}
+
+.writing-post:hover .wp-title {
+    color: var(--green);
+}
+
+.wp-date {
+    flex-shrink: 0;
 
     font-family: var(--mono);
+    font-size: 10px;
+    color: var(--dim);
+}
 
+.writing-more {
+    display: inline-block;
+
+    color: var(--green);
+    font-family: var(--mono);
     font-size: 10px;
 }
 
@@ -4117,22 +4167,16 @@ nav.scrolled {
     <div class="writing-grid">
 
 
-        <a
-            href="https://winninglate.substack.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="writing-card">
-
+        <div class="writing-card">
 
             <div class="writing-icon">
                 WL
             </div>
 
-
-            <div>
+            <div class="writing-body">
 
                 <h3>
-                    Winning Late
+                    <a href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">Winning Late</a>
                 </h3>
 
                 <p>
@@ -4140,32 +4184,41 @@ nav.scrolled {
                     It's not too late. Just a different clock.
                 </p>
 
-                <span>
+                <div class="writing-posts">
+                    <a class="writing-post" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">Two Likes and Thirty Views</span>
+                        <span class="wp-date">Jul 28</span>
+                    </a>
+                    <a class="writing-post" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">I Fixed My Waist Before My Resume</span>
+                        <span class="wp-date">Jul 7</span>
+                    </a>
+                    <a class="writing-post" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">The Grass Remembered</span>
+                        <span class="wp-date">Jun 23</span>
+                    </a>
+                </div>
+
+                <a class="writing-more" href="https://winninglate.substack.com/" target="_blank" rel="noopener noreferrer">
                     READ THE NEWSLETTER →
-                </span>
+                </a>
 
             </div>
 
-        </a>
+        </div>
 
 
 
-        <a
-            href="https://nabarunwrites.substack.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="writing-card">
-
+        <div class="writing-card">
 
             <div class="writing-icon">
                 AI
             </div>
 
-
-            <div>
+            <div class="writing-body">
 
                 <h3>
-                    AI for the Rest of Us
+                    <a href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">AI for the Rest of Us</a>
                 </h3>
 
                 <p>
@@ -4173,13 +4226,28 @@ nav.scrolled {
                     feel late to it. No PhD required.
                 </p>
 
-                <span>
+                <div class="writing-posts">
+                    <a class="writing-post" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">Nobody Teaches AI the Rules</span>
+                        <span class="wp-date">Jul 14</span>
+                    </a>
+                    <a class="writing-post" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">How ChatGPT Learnt My Style · CORE-IQ Part 2</span>
+                        <span class="wp-date">Jun 30</span>
+                    </a>
+                    <a class="writing-post" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="wp-title">What happens when you ask ChatGPT a question?</span>
+                        <span class="wp-date">Jun 16</span>
+                    </a>
+                </div>
+
+                <a class="writing-more" href="https://nabarunwrites.substack.com/" target="_blank" rel="noopener noreferrer">
                     READ THE NEWSLETTER →
-                </span>
+                </a>
 
             </div>
 
-        </a>
+        </div>
 
 
     </div>
