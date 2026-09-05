@@ -2788,8 +2788,8 @@ nav.scrolled {
 
     transform: translateY(-50%);
 
-    fill: var(--text);
-    opacity: .05;
+    fill: var(--wm, var(--green));
+    opacity: .13;
 
     pointer-events: none;
     z-index: 0;
@@ -2800,8 +2800,8 @@ nav.scrolled {
 /* watermark greens when its deck is lit by the pulse, or on hover */
 .lab-layer.lit .lab-watermark,
 .lab-layer:hover .lab-watermark {
-    fill: var(--green);
-    opacity: .12;
+    fill: var(--wm, var(--green));
+    opacity: .2;
 }
 
 @media (max-width: 760px) {
