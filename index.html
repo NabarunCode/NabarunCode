@@ -995,7 +995,7 @@ nav {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(2, 1fr);
 
     gap: 1px;
 
@@ -1006,12 +1006,160 @@ nav {
     margin-top: 65px;
 }
 
+/* tier header spanning the pair below it */
+.tier-label {
+    grid-column: 1 / -1;
+
+    background: var(--bg);
+
+    padding: 20px 32px;
+
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.tier-label .tier-n {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .16em;
+    color: var(--green);
+}
+
+.tier-label .tier-name {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.tier-label .tier-desc {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .04em;
+
+    /* readable muted base; a green highlight sweeps right-to-left, then rests */
+    color: var(--muted);
+    background: linear-gradient(
+        100deg,
+        var(--muted) 0%,
+        var(--muted) 38%,
+        var(--green) 50%,
+        var(--muted) 62%,
+        var(--muted) 100%
+    );
+    background-size: 300% 100%;
+    background-position: 120% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: tierSweep 4.6s ease-in-out infinite;
+}
+
+/* staggered cascade: line 2 starts at ~25% of line 1, line 3 at ~25% of line 2 */
+.tier-label[data-tier="1"] .tier-desc { animation-delay: 0s; }
+.tier-label[data-tier="2"] .tier-desc { animation-delay: .4s; }
+.tier-label[data-tier="3"] .tier-desc { animation-delay: .8s; }
+
+@keyframes tierSweep {
+    0%   { background-position: 120% 0; }
+    35%  { background-position: -20% 0; }
+    100% { background-position: -20% 0; }   /* rest on the readable muted tone */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tier-label .tier-desc {
+        animation: none;
+        background: none;
+        -webkit-text-fill-color: currentColor;
+        color: var(--muted);
+    }
+}
+
+
+/* --- climb spine: a green rail draws down the tiers on reveal --- */
+#learning .learning-grid {
+    position: relative;
+}
+
+#learning .learning-grid::before {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+
+    background: linear-gradient(
+        180deg,
+        var(--green) 0%,
+        rgba(108, 255, 155, .15) 100%
+    );
+
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.1s cubic-bezier(.4, 0, .2, 1);
+    z-index: 2;
+}
+
+#learning.reveal.visible .learning-grid::before {
+    transform: scaleY(1);
+}
+
+/* tier numbers light green in sequence as the spine descends past each one */
+#learning .tier-n {
+    color: var(--dim);
+    transition: color .5s ease;
+}
+#learning.reveal.visible .tier-label[data-tier="1"] .tier-n { color: var(--green); transition-delay: .35s; }
+#learning.reveal.visible .tier-label[data-tier="2"] .tier-n { color: var(--green); transition-delay: .60s; }
+#learning.reveal.visible .tier-label[data-tier="3"] .tier-n { color: var(--green); transition-delay: .85s; }
+
+
+/* --- card title underline draws left-to-right on hover --- */
+.learning-card h3 {
+    position: relative;
+    align-self: flex-start;   /* shrink to text width so the underline matches */
+}
+
+.learning-card h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 100%;
+
+    background: var(--green);
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .28s ease;
+}
+
+.learning-card:hover h3::after {
+    transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #learning .learning-grid::before { transition: none; transform: scaleY(1); }
+    #learning .tier-n { color: var(--green); transition: none; }
+    .learning-card h3::after { transition: none; }
+}
+
 .learning-card {
     background: var(--bg);
 
-    padding: 32px;
+    padding: 30px 32px;
 
-    min-height: 215px;
+    min-height: 132px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     transition: .35s;
 }
@@ -3640,11 +3788,14 @@ nav.scrolled {
     <div class="learning-grid">
 
 
-        <div class="learning-card">
+        <div class="tier-label" data-tier="1">
+            <span class="tier-n">01</span>
+            <span class="tier-name">Foundations</span>
+            <span class="tier-desc">the ground to stand on</span>
+        </div>
 
-            <div class="card-number">
-                01
-            </div>
+
+        <div class="learning-card">
 
             <h3>
                 Python & Linux
@@ -3660,10 +3811,6 @@ nav.scrolled {
 
         <div class="learning-card">
 
-            <div class="card-number">
-                02
-            </div>
-
             <h3>
                 Deep Learning
             </h3>
@@ -3677,11 +3824,14 @@ nav.scrolled {
         </div>
 
 
-        <div class="learning-card">
+        <div class="tier-label" data-tier="2">
+            <span class="tier-n">02</span>
+            <span class="tier-name">Models</span>
+            <span class="tier-desc">how they actually work</span>
+        </div>
 
-            <div class="card-number">
-                03
-            </div>
+
+        <div class="learning-card">
 
             <h3>
                 LLMs
@@ -3698,10 +3848,6 @@ nav.scrolled {
 
         <div class="learning-card">
 
-            <div class="card-number">
-                04
-            </div>
-
             <h3>
                 RAG & Agents
             </h3>
@@ -3714,11 +3860,14 @@ nav.scrolled {
         </div>
 
 
-        <div class="learning-card">
+        <div class="tier-label" data-tier="3">
+            <span class="tier-n">03</span>
+            <span class="tier-name">Systems</span>
+            <span class="tier-desc">making them run</span>
+        </div>
 
-            <div class="card-number">
-                05
-            </div>
+
+        <div class="learning-card">
 
             <h3>
                 Inference
@@ -3733,10 +3882,6 @@ nav.scrolled {
 
 
         <div class="learning-card">
-
-            <div class="card-number">
-                06
-            </div>
 
             <h3>
                 MLOps
