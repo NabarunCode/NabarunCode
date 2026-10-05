@@ -1,0 +1,40 @@
+name: Update Writing posts
+
+# Pulls the latest posts from both Substack feeds into index.html.
+# Runs once a day (10:00 IST), and can be run by hand from the Actions tab.
+on:
+  schedule:
+    - cron: "30 4 * * *"   # 04:30 UTC = 10:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: update-posts
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refresh post lists from the feeds
+        run: python3 scripts/update_posts.py
+
+      - name: Commit and redeploy if anything changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "Posts already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Update Writing posts from Substack"
+          git push
+          # pushes made with the workflow token may not start a Pages build on their own
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

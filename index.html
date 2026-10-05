@@ -4437,6 +4437,7 @@ nav.scrolled {
                     feel late to it. No PhD required.
                 </p>
 
+                <!-- posts:nabarunwrites (auto-updated from the Substack feed by .github/workflows/update-posts.yml) -->
                 <div class="writing-posts">
                     <a class="writing-post" href="https://nabarunwrites.substack.com/p/nobody-teaches-ai-the-rules" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">Nobody Teaches AI the Rules</span>
@@ -4465,6 +4466,7 @@ nav.scrolled {
                 </div>
 
                 <button type="button" class="writing-morebtn">Show 3 more ↓</button>
+                <!-- /posts:nabarunwrites -->
 
                 <div class="writing-actions">
                     <a class="writing-sub" href="https://nabarunwrites.substack.com/subscribe" target="_blank" rel="noopener noreferrer">SUBSCRIBE ↗</a>
@@ -4494,6 +4496,7 @@ nav.scrolled {
                     It's not too late. Just a different clock.
                 </p>
 
+                <!-- posts:winninglate (auto-updated from the Substack feed by .github/workflows/update-posts.yml) -->
                 <div class="writing-posts">
                     <a class="writing-post" href="https://winninglate.substack.com/p/two-likes-and-thirty-views" target="_blank" rel="noopener noreferrer">
                         <span class="wp-title">Two Likes and Thirty Views</span>
@@ -4522,6 +4525,7 @@ nav.scrolled {
                 </div>
 
                 <button type="button" class="writing-morebtn">Show 3 more ↓</button>
+                <!-- /posts:winninglate -->
 
                 <div class="writing-actions">
                     <a class="writing-sub" href="https://winninglate.substack.com/subscribe" target="_blank" rel="noopener noreferrer">SUBSCRIBE ↗</a>
@@ -5398,7 +5402,8 @@ document.querySelectorAll(".writing-morebtn").forEach(btn => {
     btn.addEventListener("click", () => {
         const card = btn.closest(".writing-card");
         const expanded = card.classList.toggle("expanded");
-        btn.textContent = expanded ? "Show fewer ↑" : "Show 3 more ↓";
+        btn.dataset.more = btn.dataset.more || btn.textContent;
+        btn.textContent = expanded ? "Show fewer ↑" : btn.dataset.more;
     });
 });
 
