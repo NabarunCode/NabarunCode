@@ -44,14 +44,14 @@ def from_rss(name):
 
 
 def from_relay(name):
-    # Substack sometimes blocks cloud servers; rss2json reads the feed for us
+    # Substack blocks GitHub's servers, so read the feed through feedrapp
     feed = urllib.parse.quote(f"https://{name}.substack.com/feed", safe="")
-    data = json.loads(get(f"https://api.rss2json.com/v1/api.json?rss_url={feed}"))
-    if data.get("status") != "ok":
-        raise RuntimeError(data.get("message", "relay error"))
-    for item in data["items"]:
-        date = datetime.datetime.strptime(item["pubDate"], "%Y-%m-%d %H:%M:%S")
-        yield date.replace(tzinfo=datetime.timezone.utc), item["title"], item["link"]
+    data = json.loads(get(f"https://feedrapp.info/?q={feed}&num=10"))
+    if data.get("responseStatus") != 200:
+        raise RuntimeError(data.get("responseDetails") or "relay error")
+    for item in data["responseData"]["feed"]["entries"]:
+        date = datetime.datetime.fromisoformat(item["publishedDate"].replace("Z", "+00:00"))
+        yield date, item["title"], item["link"]
 
 
 def fetch(name):
