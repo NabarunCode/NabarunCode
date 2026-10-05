@@ -75,6 +75,7 @@ def fetch(name):
 
 def tidy(title):
     # house style: no em dashes anywhere on the page
+    title = re.sub(r"\s*—\s*(?=\()", " ", title)   # "Style — (Part 2)" -> "Style (Part 2)"
     return re.sub(r"\s*—\s*", " · ", title)
 
 
