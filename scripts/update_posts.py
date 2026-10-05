@@ -5,10 +5,13 @@ If a feed can't be fetched or parsed, that list is left as it is.
 Standard library only, so the workflow needs no installs.
 """
 
+import datetime
 import email.utils
 import html
+import json
 import re
 import sys
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -19,23 +22,55 @@ TOTAL = 6      # posts listed in all
 INDEX = Path(__file__).resolve().parent.parent / "index.html"
 
 
-def fetch(name):
-    req = urllib.request.Request(
-        f"https://{name}.substack.com/feed",
-        headers={"User-Agent": "Mozilla/5.0 (portfolio feed sync)"},
-    )
-    with urllib.request.urlopen(req, timeout=30) as r:
-        root = ET.fromstring(r.read())
+BROWSER = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/128.0 Safari/537.36",
+    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
-    posts = []
+
+def get(url, headers=BROWSER):
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read()
+
+
+def from_rss(name):
+    root = ET.fromstring(get(f"https://{name}.substack.com/feed"))
     for item in root.iter("item"):
-        title = (item.findtext("title") or "").strip()
-        link = (item.findtext("link") or "").strip()
         date = email.utils.parsedate_to_datetime(item.findtext("pubDate"))
-        if title and link.startswith(f"https://{name}.substack.com/"):
-            posts.append((date, title, link))
-    posts.sort(reverse=True)
-    return posts[:TOTAL]
+        yield date, item.findtext("title"), item.findtext("link")
+
+
+def from_relay(name):
+    # Substack sometimes blocks cloud servers; rss2json reads the feed for us
+    feed = urllib.parse.quote(f"https://{name}.substack.com/feed", safe="")
+    data = json.loads(get(f"https://api.rss2json.com/v1/api.json?rss_url={feed}"))
+    if data.get("status") != "ok":
+        raise RuntimeError(data.get("message", "relay error"))
+    for item in data["items"]:
+        date = datetime.datetime.strptime(item["pubDate"], "%Y-%m-%d %H:%M:%S")
+        yield date.replace(tzinfo=datetime.timezone.utc), item["title"], item["link"]
+
+
+def fetch(name):
+    errors = []
+    for source in (from_rss, from_relay):
+        try:
+            posts = []
+            for date, title, link in source(name):
+                title, link = (title or "").strip(), (link or "").strip()
+                if title and link.startswith(f"https://{name}.substack.com/"):
+                    posts.append((date, title, link))
+            if posts:
+                posts.sort(reverse=True)
+                print(f"::notice::{name}: read via {source.__name__}")
+                return posts[:TOTAL]
+            errors.append(f"{source.__name__}: no posts")
+        except Exception as e:
+            errors.append(f"{source.__name__}: {e}")
+    raise RuntimeError("; ".join(errors))
 
 
 def tidy(title):
@@ -83,7 +118,7 @@ def main():
 
         indent = re.match(r"[ \t]*", m.group(2)).group(0)
         page = page[: m.start(2)] + render(posts, indent) + page[m.end(2) :]
-        print(f"{name}: {', '.join(t for _, t, _ in posts[:SHOWN])}")
+        print(f"::notice::{name}: {' | '.join(t for _, t, _ in posts[:SHOWN])}")
 
     if page != original:
         INDEX.write_text(page, encoding="utf-8")
